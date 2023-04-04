@@ -68,8 +68,10 @@ namespace King_s_path_on_a_chessboard__length_
             hraci_pole[cil[0], cil[1]] = -3;
             hraci_pole[start[0], start[1]] = 0;
             Queue moznosti = new Queue();
+            //0,0 je zarazka
             moznosti.Enqueue(0);
             moznosti.Enqueue(0);
+            //do fronty posilam postupne souradnice po dvou a odebiram znovu po dvou
             moznosti.Enqueue(start[0]);
             moznosti.Enqueue(start[1]);
             int krok = 0;
