@@ -1,0 +1,15 @@
+C:\Users\START\source\repos\King's path on a chessboard (length)\bin\Debug\net6.0\King's path on a chessboard (length).exe
+C:\Users\START\source\repos\King's path on a chessboard (length)\bin\Debug\net6.0\King's path on a chessboard (length).deps.json
+C:\Users\START\source\repos\King's path on a chessboard (length)\bin\Debug\net6.0\King's path on a chessboard (length).runtimeconfig.json
+C:\Users\START\source\repos\King's path on a chessboard (length)\bin\Debug\net6.0\King's path on a chessboard (length).dll
+C:\Users\START\source\repos\King's path on a chessboard (length)\bin\Debug\net6.0\King's path on a chessboard (length).pdb
+C:\Users\START\source\repos\King's path on a chessboard (length)\obj\Debug\net6.0\King's path on a chessboard (length).csproj.AssemblyReference.cache
+C:\Users\START\source\repos\King's path on a chessboard (length)\obj\Debug\net6.0\King's path on a chessboard (length).GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\START\source\repos\King's path on a chessboard (length)\obj\Debug\net6.0\King's path on a chessboard (length).AssemblyInfoInputs.cache
+C:\Users\START\source\repos\King's path on a chessboard (length)\obj\Debug\net6.0\King's path on a chessboard (length).AssemblyInfo.cs
+C:\Users\START\source\repos\King's path on a chessboard (length)\obj\Debug\net6.0\King's path on a chessboard (length).csproj.CoreCompileInputs.cache
+C:\Users\START\source\repos\King's path on a chessboard (length)\obj\Debug\net6.0\King's path on a chessboard (length).dll
+C:\Users\START\source\repos\King's path on a chessboard (length)\obj\Debug\net6.0\refint\King's path on a chessboard (length).dll
+C:\Users\START\source\repos\King's path on a chessboard (length)\obj\Debug\net6.0\King's path on a chessboard (length).pdb
+C:\Users\START\source\repos\King's path on a chessboard (length)\obj\Debug\net6.0\King's path on a chessboard (length).genruntimeconfig.cache
+C:\Users\START\source\repos\King's path on a chessboard (length)\obj\Debug\net6.0\ref\King's path on a chessboard (length).dll
