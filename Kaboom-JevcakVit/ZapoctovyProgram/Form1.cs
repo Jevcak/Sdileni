@@ -143,6 +143,10 @@ namespace ZapoctovyProgram
             {
                 boom.Visible = false;
             }
+            foreach (PictureBox srdce in Zivoty)
+            {
+                srdce.Visible = false;
+            }
             skore = 0;
             zivoty = obtiznost[(int)Obtiznost.Value - 1, 0];
             for (int i = 0; i < zivoty; i++)

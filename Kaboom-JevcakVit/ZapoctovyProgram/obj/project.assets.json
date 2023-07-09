@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\START\\Sdileni\\ZapoctovyProgram\\ZapoctovyProgram.csproj",
+      "projectUniqueName": "C:\\Users\\START\\Sdileni\\Kaboom-JevcakVit\\ZapoctovyProgram\\ZapoctovyProgram.csproj",
       "projectName": "ZapoctovyProgram",
-      "projectPath": "C:\\Users\\START\\Sdileni\\ZapoctovyProgram\\ZapoctovyProgram.csproj",
+      "projectPath": "C:\\Users\\START\\Sdileni\\Kaboom-JevcakVit\\ZapoctovyProgram\\ZapoctovyProgram.csproj",
       "packagesPath": "C:\\Users\\START\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\START\\Sdileni\\ZapoctovyProgram\\obj\\",
+      "outputPath": "C:\\Users\\START\\Sdileni\\Kaboom-JevcakVit\\ZapoctovyProgram\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\START\\AppData\\Roaming\\NuGet\\NuGet.Config",
