@@ -644,7 +644,6 @@
             MinimizeBox = false;
             Name = "Form1";
             Text = "Kaboom";
-            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)bomba1).EndInit();
             ((System.ComponentModel.ISupportInitialize)Paddle).EndInit();
             ((System.ComponentModel.ISupportInitialize)bomba0).EndInit();

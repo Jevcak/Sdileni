@@ -93,13 +93,6 @@ namespace ZapoctovyProgram
             Bob.Location = new Point(Width / 2, 50);
 
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            NastavStav(Stav.HRA);
-            Paddle.Location = new Point((Width - Paddle.Width) / 2, Height - 100);
-            NextBomb = new Point(rnd.Next(0, Width - 90), 0);
-        }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Escape)
@@ -182,6 +175,7 @@ namespace ZapoctovyProgram
         private void BMenu_Click(object sender, EventArgs e)
         {
             NastavStav(Stav.MENU);
+            skore = 0;
             Logika.HudboHrej(HrajeHudba, hudebnik);
             foreach (PictureBox trofej in Trofeje)
             {
@@ -192,10 +186,6 @@ namespace ZapoctovyProgram
         private void BPokracovat_Click(object sender, EventArgs e)
         {
             NastavStav(Stav.HRA);
-            for (int i = 0; i < zivoty; i++)
-            {
-                Zivoty[i].Visible = true;
-            }
             Logika.HudboHrej(HrajeHudba, hudebnik);
         }
         public static void EnableButton(Button button, bool OnOff)
@@ -279,11 +269,11 @@ namespace ZapoctovyProgram
                         boom.Visible = false;
                     }
                     Bob.Visible = false;
+                    Paddle.Visible = false; 
                     bombovac.Interval = obtiznost[(int)Obtiznost.Value - 1, 2];
                     timer1.Interval = 50;
                     ;
                     Cursor.Show();
-                    skore = 0;
                     break;
                 default:
                     break;
@@ -324,28 +314,11 @@ namespace ZapoctovyProgram
                     }
                     else if (boom.Location.Y >= Height - 50)
                     {
-                        skore++;
                         boom.Image = BombImg;
                         boom.Visible = false;
                     }
                 }
             }
-        }
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-
-            SolidBrush brush = new SolidBrush(System.Drawing.ColorTranslator.FromHtml("#8080ff"));
-            e.Graphics.FillRectangle(brush,
-                                   0,
-                                   0,
-                                   this.Width,
-                                   120);
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
         private int kterou = 0;
         private void bombovac_Tick(object sender, EventArgs e)
@@ -411,27 +384,35 @@ namespace ZapoctovyProgram
         }
         private void KontrolaSkore()
         {
-            if (skore == 12)
+            if (skore == 50)
             {
                 bronzTrofej.Visible = true;
+                zivoty = Logika.ZmenaZivotu(zivoty);
             }
-            else if (skore == 25)
+            else if (skore == 100)
             {
                 stribroTrofej.Visible = true;
+                zivoty = Logika.ZmenaZivotu(zivoty);
             }
-            else if (skore == 50)
+            else if (skore == 250)
             {
                 zlatoTrofej.Visible = true;
+                zivoty = Logika.ZmenaZivotu(zivoty);
             }
-            else if ((skore == 75) && (Obtiznost.Value> 1))
+            else if ((skore == 500) && (Obtiznost.Value> 1))
             {
                 emeraldTrofej.Visible = true;
+                zivoty = Logika.ZmenaZivotu(zivoty);
             }
-            else if ((skore == 100) && (Obtiznost.Value > 2))
+            else if ((skore == 1000) && (Obtiznost.Value > 2))
             {
                 diamantTrofej.Visible = true;
+                zivoty = Logika.ZmenaZivotu(zivoty);
             }
-
+            for (int i = 0; i < zivoty; i++)
+            {
+                Zivoty[i].Visible = true;
+            }
         }
     }
 }

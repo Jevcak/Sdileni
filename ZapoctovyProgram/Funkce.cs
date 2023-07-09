@@ -58,4 +58,15 @@ public class Logika
             casovac.Interval = (casovac.Interval + 1) / 2;
         }
     }
+    public static int ZmenaZivotu(int pocet)
+    {
+        if (pocet < 3)
+        {
+            return pocet + 1;
+        }
+        else
+        {
+            return pocet;
+        }
+    }
 }
