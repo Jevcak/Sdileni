@@ -1,0 +1,6 @@
+C:\Users\START\Desktop\MFF\Letní semestr - 1.ročník\Programování 2\Zapoctak publikace\ZapoctovyProgram.exe
+C:\Users\START\Desktop\MFF\Letní semestr - 1.ročník\Programování 2\Zapoctak publikace\Resources\Bomb.png
+C:\Users\START\Desktop\MFF\Letní semestr - 1.ročník\Programování 2\Zapoctak publikace\ZapoctovyProgram.dll
+C:\Users\START\Desktop\MFF\Letní semestr - 1.ročník\Programování 2\Zapoctak publikace\ZapoctovyProgram.deps.json
+C:\Users\START\Desktop\MFF\Letní semestr - 1.ročník\Programování 2\Zapoctak publikace\ZapoctovyProgram.runtimeconfig.json
+C:\Users\START\Desktop\MFF\Letní semestr - 1.ročník\Programování 2\Zapoctak publikace\ZapoctovyProgram.pdb

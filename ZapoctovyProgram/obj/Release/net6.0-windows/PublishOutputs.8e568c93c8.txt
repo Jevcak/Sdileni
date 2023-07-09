@@ -1,0 +1,6 @@
+C:\Users\START\Desktop\zájmovost\ZapoctovyProgram.exe
+C:\Users\START\Desktop\zájmovost\Resources\Bomb.png
+C:\Users\START\Desktop\zájmovost\ZapoctovyProgram.dll
+C:\Users\START\Desktop\zájmovost\ZapoctovyProgram.deps.json
+C:\Users\START\Desktop\zájmovost\ZapoctovyProgram.runtimeconfig.json
+C:\Users\START\Desktop\zájmovost\ZapoctovyProgram.pdb
