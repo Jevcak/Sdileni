@@ -1,0 +1,6 @@
+C:\Users\START\Desktop\ZenBook\Programovani\ZapoctovyProgram\bin\Release\net6.0-windows\publish\ZapoctovyProgram.exe
+C:\Users\START\Desktop\ZenBook\Programovani\ZapoctovyProgram\bin\Release\net6.0-windows\publish\Resources\Bomb.png
+C:\Users\START\Desktop\ZenBook\Programovani\ZapoctovyProgram\bin\Release\net6.0-windows\publish\ZapoctovyProgram.dll
+C:\Users\START\Desktop\ZenBook\Programovani\ZapoctovyProgram\bin\Release\net6.0-windows\publish\ZapoctovyProgram.deps.json
+C:\Users\START\Desktop\ZenBook\Programovani\ZapoctovyProgram\bin\Release\net6.0-windows\publish\ZapoctovyProgram.runtimeconfig.json
+C:\Users\START\Desktop\ZenBook\Programovani\ZapoctovyProgram\bin\Release\net6.0-windows\publish\ZapoctovyProgram.pdb
