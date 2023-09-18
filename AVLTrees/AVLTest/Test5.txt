@@ -1,0 +1,8 @@
+insert strom 50 30 70 20 40 60
+print strom 
+insert tree 10 15 25 80 100
+print tree
+merge strom tree spojeno
+print spojeno
+destroy spojeno 
+print spojeno

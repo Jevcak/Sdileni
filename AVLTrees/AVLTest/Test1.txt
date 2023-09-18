@@ -1,0 +1,4 @@
+insert strom 50 30 70 20 40 60 90 10 80 100
+print strom
+destroy strom 
+print strom

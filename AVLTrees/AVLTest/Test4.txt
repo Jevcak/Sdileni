@@ -1,0 +1,4 @@
+insert strom 10 50 30 20 80 90
+insert tree 35 15 10 25 95 100 80
+merge tree strom spojeny
+print spojeny
