@@ -1,0 +1,6 @@
+insert strom 30 45 55 65 20 35 70 15 25 10 5 75 80
+print strom
+delete strom 30 45 55 65 20 35 70 15 25 10 5 75
+print strom
+delete strom 80
+print strom
