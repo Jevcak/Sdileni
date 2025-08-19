@@ -61,7 +61,6 @@ C:\Users\START\Sdileni\Kaboom-JevcakVit\ZapoctovyProgram\bin\Debug\net6.0-window
 C:\Users\START\Sdileni\Kaboom-JevcakVit\ZapoctovyProgram\bin\Debug\net6.0-windows\ZapoctovyProgram.runtimeconfig.json
 C:\Users\START\Sdileni\Kaboom-JevcakVit\ZapoctovyProgram\bin\Debug\net6.0-windows\ZapoctovyProgram.dll
 C:\Users\START\Sdileni\Kaboom-JevcakVit\ZapoctovyProgram\bin\Debug\net6.0-windows\ZapoctovyProgram.pdb
-C:\Users\START\Sdileni\Kaboom-JevcakVit\ZapoctovyProgram\obj\Debug\net6.0-windows\ZapoctovyProgram.csproj.AssemblyReference.cache
 C:\Users\START\Sdileni\Kaboom-JevcakVit\ZapoctovyProgram\obj\Debug\net6.0-windows\ZapoctovyProgram.Form1.resources
 C:\Users\START\Sdileni\Kaboom-JevcakVit\ZapoctovyProgram\obj\Debug\net6.0-windows\ZapoctovyProgram.Properties.Resources.resources
 C:\Users\START\Sdileni\Kaboom-JevcakVit\ZapoctovyProgram\obj\Debug\net6.0-windows\ZapoctovyProgram.csproj.GenerateResource.cache
