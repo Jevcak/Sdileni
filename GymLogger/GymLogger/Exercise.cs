@@ -3,6 +3,37 @@
 
 namespace GymLogger
 {
+    public class User
+    {
+        public int Id { get; set; }
+
+        [Required, StringLength(50)]
+        public string Name { get; set; } = string.Empty;
+
+        [Required, StringLength(255)]
+        public string Password { get; set; } = string.Empty;
+
+        public ICollection<Session>? Sessions { get; set; }
+    }
+
+    public class Session
+    {
+        public int Id { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
+
+        public User? User { get; set; }
+
+        [Range(1, 10)]
+        public int Feeling { get; set; }
+
+        [Required]
+        public DateTime DateTime { get; set; } = DateTime.Now;
+
+        public ICollection<ExerciseSession>? ExerciseSessions { get; set; }
+    }
+
     public class Exercise
     {
         public int Id { get; set; }
@@ -10,9 +41,53 @@ namespace GymLogger
         [Required, StringLength(100)]
         public string Name { get; set; } = string.Empty;
 
-        public MuscleGroup[]? MuscleGroup { get; set; }
+        public ICollection<ExerciseMuscle>? ExerciseMuscles { get; set; }
     }
-    public class WorkoutEntry
+
+    public class ExerciseSession
+    {
+        public int Id { get; set; }
+
+        [Required]
+        public int SessionId { get; set; }
+
+        public Session? Session { get; set; }
+
+        [Required]
+        public int ExerciseId { get; set; }
+
+        public Exercise? Exercise { get; set; }
+
+        [Range(0, 500)]
+        public double? Weight { get; set; }
+
+        [Range(1, 100)]
+        public int? NofRepetitions { get; set; }
+
+        [Range(1, 50)]
+        public int? NofSets { get; set; }
+
+        public bool IsSingleSet { get; set; } = false;
+
+        public DateTime DateTime { get; set; } = DateTime.Now;
+
+        public string? Note { get; set; }
+    }
+
+    public class Muscle
+    {
+        public int Id { get; set; }
+
+        [Required, StringLength(100)]
+        public string Name { get; set; } = string.Empty;
+
+        [Range(1, 5)]
+        public int Weight { get; set; }
+
+        public ICollection<ExerciseMuscle>? ExerciseMuscles { get; set; }
+    }
+
+    public class ExerciseMuscle
     {
         public int Id { get; set; }
 
@@ -22,26 +97,8 @@ namespace GymLogger
         public Exercise? Exercise { get; set; }
 
         [Required]
-        public string UserId { get; set; } = string.Empty;
+        public int MuscleId { get; set; }
 
-        [Required]
-        public DateTime Date { get; set; } = DateTime.Now;
-
-        [Range(0, 500)]
-        public double Weight { get; set; }
-
-        [Range(1, 20)]
-        public int Sets { get; set; }
-
-        [Range(1, 100)]
-        public int Reps { get; set; }
-    }
-    public class MuscleGroup
-    {
-
-    }
-    public class Muscle : MuscleGroup
-    {
-
+        public Muscle? Muscle { get; set; }
     }
 }
