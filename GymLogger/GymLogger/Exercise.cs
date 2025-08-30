@@ -1,18 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace GymLogger
 {
-    public class User
+    public class User : IdentityUser
     {
-        public int Id { get; set; }
-
         [Required, StringLength(50)]
-        public string Name { get; set; } = string.Empty;
-
-        [Required, StringLength(255)]
-        public string Password { get; set; } = string.Empty;
-
+        public string FullName { get; set; } = string.Empty;
         public ICollection<Session>? Sessions { get; set; }
     }
 
@@ -21,7 +16,7 @@ namespace GymLogger
         public int Id { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; } = String.Empty;
 
         public User? User { get; set; }
 
