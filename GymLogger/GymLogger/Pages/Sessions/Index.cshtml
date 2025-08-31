@@ -1,0 +1,31 @@
+﻿@page
+@model GymLogger.Pages.Sessions.IndexModel
+@{
+    ViewData["Title"] = "Moje tréninky";
+}
+<h1>Moje tréninky</h1>
+
+@if (!Model.Sessions.Any())
+{
+    <p>Zatím nemáš žádný trénink. 🏋️‍♂️</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Název</th>
+                <th>Datum</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var session in Model.Sessions)
+            {
+                <tr>
+                    <td>@session.Name</td>
+                    <td>@session.Date.ToString("dd.MM.yyyy HH:mm")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

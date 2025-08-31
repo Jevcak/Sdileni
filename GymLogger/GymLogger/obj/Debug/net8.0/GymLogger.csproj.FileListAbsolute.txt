@@ -136,11 +136,6 @@ C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\GymLogger.RazorAssem
 C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\GymLogger.sourcelink.json
 C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\staticwebassets.development.json
-C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\staticwebassets\msbuild.GymLogger.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\staticwebassets\msbuild.build.GymLogger.props
-C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.GymLogger.props
-C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.GymLogger.props
-C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\scopedcss\bundle\GymLogger.styles.css
 C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\scopedcss\projectbundle\GymLogger.bundle.scp.css
@@ -200,3 +195,11 @@ C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net8.0\ru\Microsoft.CodeAna
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net8.0\GymLogger.staticwebassets.endpoints.json
+C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

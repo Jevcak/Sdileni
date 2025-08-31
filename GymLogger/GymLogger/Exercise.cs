@@ -16,15 +16,17 @@ namespace GymLogger
         public int Id { get; set; }
 
         [Required]
-        public string UserId { get; set; } = String.Empty;
+        public string UserId { get; set; } = string.Empty;
 
         public User? User { get; set; }
+        [Required]
+        public string Name { get; set; } = string.Empty;
 
         [Range(1, 10)]
         public int Feeling { get; set; }
 
         [Required]
-        public DateTime DateTime { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Now;
 
         public ICollection<ExerciseSession>? ExerciseSessions { get; set; }
     }

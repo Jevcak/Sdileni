@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -5,16 +6,20 @@ namespace GymLogger.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly SignInManager<User> _signInManager;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(SignInManager<User> signInManager)
         {
-            _logger = logger;
+            _signInManager = signInManager;
         }
-
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (_signInManager.IsSignedIn(User))
+            {
+                return RedirectToPage("/Dashboard/Index");
+            }
 
+            return Page();
         }
     }
 }

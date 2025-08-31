@@ -31,6 +31,103 @@ namespace GymLogger.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Exercises");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Tlaky na lavičce"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Dřepy"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Mrtvý tah"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Shyby s váhou"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Přemístění"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Bulharský dřep"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Rumunský mrtvý tah"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Biceps s jednoručkami"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Bench press s osou"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Výpady s váhou"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Calf Raises"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Triceps"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Leg Extensions"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Leg Raises"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "Overhead Press"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Přítahy"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Tlaky na ramena s jednoručkami"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Hip Thrust"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "Kettlebell Swing"
+                        });
                 });
 
             modelBuilder.Entity("GymLogger.ExerciseMuscle", b =>
@@ -118,11 +215,15 @@ namespace GymLogger.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Feeling")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
