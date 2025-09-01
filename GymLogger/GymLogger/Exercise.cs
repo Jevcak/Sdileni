@@ -83,7 +83,7 @@ namespace GymLogger
         public string Name { get; set; } = string.Empty;
 
         [Range(1, 5)]
-        public int Weight { get; set; }
+        public int Importance { get; set; }
 
         public ICollection<ExerciseMuscle>? ExerciseMuscles { get; set; }
     }

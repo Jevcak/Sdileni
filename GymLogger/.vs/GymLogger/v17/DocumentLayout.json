@@ -3,36 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\START\\Sdileni\\GymLogger\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|c:\\users\\start\\sdileni\\gymlogger\\gymlogger\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|solutionrelative:gymlogger\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|c:\\users\\start\\sdileni\\gymlogger\\gymlogger\\pages\\dashboard\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|solutionrelative:gymlogger\\pages\\dashboard\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|c:\\users\\start\\sdileni\\gymlogger\\gymlogger\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|solutionrelative:gymlogger\\pages\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|c:\\users\\start\\sdileni\\gymlogger\\gymlogger\\pages\\sessions\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|solutionrelative:gymlogger\\pages\\sessions\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|c:\\users\\start\\sdileni\\gymlogger\\gymlogger\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|solutionrelative:gymlogger\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|c:\\users\\start\\sdileni\\gymlogger\\gymlogger\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|solutionrelative:gymlogger\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|c:\\users\\start\\sdileni\\gymlogger\\gymlogger\\pages\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|solutionrelative:gymlogger\\pages\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|c:\\users\\start\\sdileni\\gymlogger\\gymlogger\\pages\\sessions\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|solutionrelative:gymlogger\\pages\\sessions\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|c:\\users\\start\\sdileni\\gymlogger\\gymlogger\\pages\\sessions\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|solutionrelative:gymlogger\\pages\\sessions\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|c:\\users\\start\\sdileni\\gymlogger\\gymlogger\\pages\\sessions\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|solutionrelative:gymlogger\\pages\\sessions\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|c:\\users\\start\\sdileni\\gymlogger\\gymlogger\\exercise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|solutionrelative:gymlogger\\exercise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|c:\\users\\start\\sdileni\\gymlogger\\gymlogger\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|solutionrelative:gymlogger\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|c:\\users\\start\\sdileni\\gymlogger\\gymlogger\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C44EECDE-2BD0-4800-90B1-8B7670675484}|GymLogger\\GymLogger.csproj|solutionrelative:gymlogger\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -52,7 +48,7 @@
         },
         {
           "DockedWidth": 185,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -68,107 +64,104 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_LoginPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Shared\\_LoginPartial.cshtml",
+              "RelativeDocumentMoniker": "GymLogger\\Pages\\Shared\\_LoginPartial.cshtml",
+              "ToolTip": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Shared\\_LoginPartial.cshtml",
+              "RelativeToolTip": "GymLogger\\Pages\\Shared\\_LoginPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-01T16:32:23.054Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Index.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Dashboard\\Index.cshtml.cs",
-              "RelativeDocumentMoniker": "GymLogger\\Pages\\Dashboard\\Index.cshtml.cs",
-              "ToolTip": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Dashboard\\Index.cshtml.cs",
-              "RelativeToolTip": "GymLogger\\Pages\\Dashboard\\Index.cshtml.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAA7wDoAAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-01T09:03:28.565Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Sessions\\Index.cshtml.cs",
-              "RelativeDocumentMoniker": "GymLogger\\Pages\\Sessions\\Index.cshtml.cs",
-              "ToolTip": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Sessions\\Index.cshtml.cs",
-              "RelativeToolTip": "GymLogger\\Pages\\Sessions\\Index.cshtml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-31T18:39:31.891Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Sessions\\Index.cshtml",
               "RelativeDocumentMoniker": "GymLogger\\Pages\\Sessions\\Index.cshtml",
               "ToolTip": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Sessions\\Index.cshtml",
               "RelativeToolTip": "GymLogger\\Pages\\Sessions\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-31T18:39:20.054Z",
+              "WhenOpened": "2025-09-01T16:28:06.796Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Privacy.cshtml",
-              "DocumentMoniker": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Privacy.cshtml",
-              "RelativeDocumentMoniker": "GymLogger\\Pages\\Privacy.cshtml",
-              "ToolTip": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Privacy.cshtml",
-              "RelativeToolTip": "GymLogger\\Pages\\Privacy.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAArAAAAAAAAAA==",
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Sessions\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "GymLogger\\Pages\\Sessions\\Index.cshtml.cs",
+              "ToolTip": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Sessions\\Index.cshtml.cs",
+              "RelativeToolTip": "GymLogger\\Pages\\Sessions\\Index.cshtml.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAUwEoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-01T16:22:02.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Sessions\\Details.cshtml",
+              "RelativeDocumentMoniker": "GymLogger\\Pages\\Sessions\\Details.cshtml",
+              "ToolTip": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Sessions\\Details.cshtml",
+              "RelativeToolTip": "GymLogger\\Pages\\Sessions\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAUwBgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-31T18:13:15.037Z",
+              "WhenOpened": "2025-09-01T16:14:05.333Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Index.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Index.cshtml.cs",
-              "RelativeDocumentMoniker": "GymLogger\\Pages\\Index.cshtml.cs",
-              "ToolTip": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Pages\\Index.cshtml.cs",
-              "RelativeToolTip": "GymLogger\\Pages\\Index.cshtml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA6AAAAAAAAAA==",
+              "Title": "Exercise.cs",
+              "DocumentMoniker": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Exercise.cs",
+              "RelativeDocumentMoniker": "GymLogger\\Exercise.cs",
+              "ToolTip": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Exercise.cs",
+              "RelativeToolTip": "GymLogger\\Exercise.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFQAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-31T18:08:24.045Z",
+              "WhenOpened": "2025-09-01T12:09:58.242Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "GymLogger\\Data\\ApplicationDbContext.cs",
               "ToolTip": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Data\\ApplicationDbContext.cs",
               "RelativeToolTip": "GymLogger\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAwwJ0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAJ0AAAAAAAAAAAAwwCIAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-26T19:59:31.46Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Exercise.cs",
-              "DocumentMoniker": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Exercise.cs",
-              "RelativeDocumentMoniker": "GymLogger\\Exercise.cs",
-              "ToolTip": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Exercise.cs",
-              "RelativeToolTip": "GymLogger\\Exercise.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAkwEEAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-20T15:41:53.845Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Program.cs",
               "RelativeDocumentMoniker": "GymLogger\\Program.cs",
               "ToolTip": "C:\\Users\\START\\Sdileni\\GymLogger\\GymLogger\\Program.cs",
               "RelativeToolTip": "GymLogger\\Program.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBMAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAACgAAAAAAAAAAAAQwCgAAABQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-20T15:24:12.797Z",
               "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 8,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             }
           ]
         }

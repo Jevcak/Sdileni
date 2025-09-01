@@ -1,0 +1,35 @@
+﻿@page "{id:int}"
+@model GymLogger.Pages.Sessions.DetailsModel
+@{
+    ViewData["Title"] = "Session Details";
+}
+
+<h2>@Model.Session.Name (@Model.Session.Date.ToString("dd.MM.yyyy HH:mm"))</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Exercise</th>
+            <th>Muscles</th>
+            <th>Weight (kg)</th>
+            <th>Repetitions</th>
+            <th>Sets</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var es in Model.ExerciseSessions)
+        {
+            <tr>
+                <td>@es.Exercise!.Name</td>
+                <td>
+                    @string.Join(", ", es.Exercise.ExerciseMuscles!.Select(em => em.Muscle!.Name))
+                </td>
+                <td>@es.Weight</td>
+                <td>@es.NofRepetitions</td>
+                <td>@es.NofSets</td>
+                <td>@es.Note</td>
+            </tr>
+        }
+    </tbody>
+</table>

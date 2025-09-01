@@ -490,13 +490,13 @@ namespace GymLogger.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Importance")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Weight")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -506,80 +506,80 @@ namespace GymLogger.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Hamstrings",
-                            Weight = 0
+                            Importance = 4,
+                            Name = "Hamstrings"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Quadriceps",
-                            Weight = 0
+                            Importance = 5,
+                            Name = "Quadriceps"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Glutes",
-                            Weight = 0
+                            Importance = 5,
+                            Name = "Glutes"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Calves",
-                            Weight = 0
+                            Importance = 2,
+                            Name = "Calves"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Chest",
-                            Weight = 0
+                            Importance = 5,
+                            Name = "Chest"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Back",
-                            Weight = 0
+                            Importance = 5,
+                            Name = "Back"
                         },
                         new
                         {
                             Id = 7,
-                            Name = "Shoulders",
-                            Weight = 0
+                            Importance = 4,
+                            Name = "Shoulders"
                         },
                         new
                         {
                             Id = 8,
-                            Name = "Biceps",
-                            Weight = 0
+                            Importance = 3,
+                            Name = "Biceps"
                         },
                         new
                         {
                             Id = 9,
-                            Name = "Triceps",
-                            Weight = 0
+                            Importance = 3,
+                            Name = "Triceps"
                         },
                         new
                         {
                             Id = 10,
-                            Name = "Forearms",
-                            Weight = 0
+                            Importance = 1,
+                            Name = "Forearms"
                         },
                         new
                         {
                             Id = 11,
-                            Name = "Core",
-                            Weight = 0
+                            Importance = 3,
+                            Name = "Core"
                         },
                         new
                         {
                             Id = 12,
-                            Name = "Trapezius",
-                            Weight = 0
+                            Importance = 2,
+                            Name = "Trapezius"
                         },
                         new
                         {
                             Id = 13,
-                            Name = "Adductors",
-                            Weight = 0
+                            Importance = 1,
+                            Name = "Adductors"
                         });
                 });
 

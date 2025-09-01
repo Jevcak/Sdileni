@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymLogger.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250831190343_AddExercisesToBase")]
-    partial class AddExercisesToBase
+    [Migration("20250901160900_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,119 +39,413 @@ namespace GymLogger.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Tlaky na lavičce"
+                            Name = "Bench Press"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Dřepy"
+                            Name = "Squat"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Mrtvý tah"
+                            Name = "Deadlift"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Shyby s váhou"
+                            Name = "Weighted Pull-ups"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Přemístění"
+                            Name = "Clean"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Bulharský dřep"
+                            Name = "Bulgarian Split Squat"
                         },
                         new
                         {
                             Id = 7,
-                            Name = "Rumunský mrtvý tah"
+                            Name = "Romanian Deadlift"
                         },
                         new
                         {
                             Id = 8,
-                            Name = "Biceps s jednoručkami"
+                            Name = "Biceps Curl"
                         },
                         new
                         {
                             Id = 9,
-                            Name = "Bench press s osou"
+                            Name = "Weighted Lunges"
                         },
                         new
                         {
                             Id = 10,
-                            Name = "Výpady s váhou"
-                        },
-                        new
-                        {
-                            Id = 11,
                             Name = "Calf Raises"
                         },
                         new
                         {
-                            Id = 12,
-                            Name = "Triceps"
+                            Id = 11,
+                            Name = "Triceps Extension"
                         },
                         new
                         {
-                            Id = 13,
+                            Id = 12,
                             Name = "Leg Extensions"
                         },
                         new
                         {
-                            Id = 14,
+                            Id = 13,
                             Name = "Leg Raises"
                         },
                         new
                         {
-                            Id = 15,
+                            Id = 14,
                             Name = "Overhead Press"
                         },
                         new
                         {
+                            Id = 15,
+                            Name = "Rows"
+                        },
+                        new
+                        {
                             Id = 16,
-                            Name = "Přítahy"
+                            Name = "Shoulder Press"
                         },
                         new
                         {
                             Id = 17,
-                            Name = "Tlaky na ramena s jednoručkami"
-                        },
-                        new
-                        {
-                            Id = 19,
                             Name = "Hip Thrust"
                         },
                         new
                         {
-                            Id = 20,
+                            Id = 18,
                             Name = "Kettlebell Swing"
                         });
                 });
 
             modelBuilder.Entity("GymLogger.ExerciseMuscle", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("ExerciseId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("MuscleId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("INTEGER");
 
-                    b.HasIndex("ExerciseId");
+                    b.HasKey("ExerciseId", "MuscleId");
 
                     b.HasIndex("MuscleId");
 
                     b.ToTable("ExerciseMuscles");
+
+                    b.HasData(
+                        new
+                        {
+                            ExerciseId = 1,
+                            MuscleId = 5,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 1,
+                            MuscleId = 7,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 1,
+                            MuscleId = 9,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 2,
+                            MuscleId = 2,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 2,
+                            MuscleId = 1,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 2,
+                            MuscleId = 3,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 2,
+                            MuscleId = 13,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 3,
+                            MuscleId = 1,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 3,
+                            MuscleId = 3,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 3,
+                            MuscleId = 6,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 3,
+                            MuscleId = 10,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 3,
+                            MuscleId = 12,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 3,
+                            MuscleId = 11,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 4,
+                            MuscleId = 6,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 4,
+                            MuscleId = 10,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 5,
+                            MuscleId = 2,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 5,
+                            MuscleId = 1,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 5,
+                            MuscleId = 3,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 5,
+                            MuscleId = 7,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 5,
+                            MuscleId = 12,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 5,
+                            MuscleId = 11,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 6,
+                            MuscleId = 2,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 6,
+                            MuscleId = 1,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 6,
+                            MuscleId = 3,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 7,
+                            MuscleId = 1,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 7,
+                            MuscleId = 3,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 7,
+                            MuscleId = 6,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 8,
+                            MuscleId = 8,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 8,
+                            MuscleId = 10,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 9,
+                            MuscleId = 2,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 9,
+                            MuscleId = 1,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 9,
+                            MuscleId = 3,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 10,
+                            MuscleId = 4,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 11,
+                            MuscleId = 9,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 12,
+                            MuscleId = 2,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 13,
+                            MuscleId = 11,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 13,
+                            MuscleId = 3,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 14,
+                            MuscleId = 7,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 14,
+                            MuscleId = 12,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 15,
+                            MuscleId = 6,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 15,
+                            MuscleId = 10,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 15,
+                            MuscleId = 12,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 16,
+                            MuscleId = 7,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 16,
+                            MuscleId = 12,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 17,
+                            MuscleId = 3,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 17,
+                            MuscleId = 1,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 17,
+                            MuscleId = 11,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 18,
+                            MuscleId = 1,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 18,
+                            MuscleId = 3,
+                            Id = 0
+                        },
+                        new
+                        {
+                            ExerciseId = 18,
+                            MuscleId = 11,
+                            Id = 0
+                        });
                 });
 
             modelBuilder.Entity("GymLogger.ExerciseSession", b =>
@@ -169,10 +463,10 @@ namespace GymLogger.Migrations
                     b.Property<bool>("IsSingleSet")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("NofRepetitions")
+                    b.Property<int>("NofRepetitions")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("NofSets")
+                    b.Property<int>("NofSets")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Note")
@@ -181,7 +475,7 @@ namespace GymLogger.Migrations
                     b.Property<int>("SessionId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double?>("Weight")
+                    b.Property<double>("Weight")
                         .HasColumnType("REAL");
 
                     b.HasKey("Id");
@@ -199,17 +493,97 @@ namespace GymLogger.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Importance")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Weight")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.ToTable("Muscles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Importance = 4,
+                            Name = "Hamstrings"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Importance = 5,
+                            Name = "Quadriceps"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Importance = 5,
+                            Name = "Glutes"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Importance = 2,
+                            Name = "Calves"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Importance = 5,
+                            Name = "Chest"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Importance = 5,
+                            Name = "Back"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Importance = 4,
+                            Name = "Shoulders"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Importance = 3,
+                            Name = "Biceps"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Importance = 3,
+                            Name = "Triceps"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Importance = 1,
+                            Name = "Forearms"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Importance = 3,
+                            Name = "Core"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Importance = 2,
+                            Name = "Trapezius"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Importance = 1,
+                            Name = "Adductors"
+                        });
                 });
 
             modelBuilder.Entity("GymLogger.Session", b =>

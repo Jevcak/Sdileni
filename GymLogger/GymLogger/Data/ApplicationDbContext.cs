@@ -55,19 +55,19 @@ namespace GymLogger.Data
                 new Exercise { Id = 18, Name = "Kettlebell Swing" }
             );
             modelBuilder.Entity<Muscle>().HasData(
-                new Muscle { Id = 1, Name = "Hamstrings" },
-                new Muscle { Id = 2, Name = "Quadriceps" },
-                new Muscle { Id = 3, Name = "Glutes" },
-                new Muscle { Id = 4, Name = "Calves" },
-                new Muscle { Id = 5, Name = "Chest" },
-                new Muscle { Id = 6, Name = "Back" },
-                new Muscle { Id = 7, Name = "Shoulders" },
-                new Muscle { Id = 8, Name = "Biceps" },
-                new Muscle { Id = 9, Name = "Triceps" },
-                new Muscle { Id = 10, Name = "Forearms" },
-                new Muscle { Id = 11, Name = "Core" },
-                new Muscle { Id = 12, Name = "Trapezius" },
-                new Muscle { Id = 13, Name = "Adductors" }
+                new Muscle { Id = 1, Name = "Hamstrings", Importance = 4 },
+                new Muscle { Id = 2, Name = "Quadriceps", Importance = 5 },
+                new Muscle { Id = 3, Name = "Glutes", Importance = 5 },
+                new Muscle { Id = 4, Name = "Calves", Importance = 2 },
+                new Muscle { Id = 5, Name = "Chest", Importance = 5 },
+                new Muscle { Id = 6, Name = "Back", Importance = 5 },
+                new Muscle { Id = 7, Name = "Shoulders", Importance = 4 },
+                new Muscle { Id = 8, Name = "Biceps", Importance = 3 },
+                new Muscle { Id = 9, Name = "Triceps", Importance = 3 },
+                new Muscle { Id = 10, Name = "Forearms", Importance = 1 },
+                new Muscle { Id = 11, Name = "Core", Importance = 3 },
+                new Muscle { Id = 12, Name = "Trapezius", Importance = 2 },
+                new Muscle { Id = 13, Name = "Adductors", Importance = 1 }
             );
 
             modelBuilder.Entity<ExerciseMuscle>().HasData(

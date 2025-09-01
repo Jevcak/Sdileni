@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace GymLogger.Migrations
 {
     /// <inheritdoc />
-    public partial class InitIdentity : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -71,7 +73,7 @@ namespace GymLogger.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Weight = table.Column<int>(type: "INTEGER", nullable: false)
+                    Importance = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -191,8 +193,9 @@ namespace GymLogger.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Feeling = table.Column<int>(type: "INTEGER", nullable: false),
-                    DateTime = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -209,14 +212,13 @@ namespace GymLogger.Migrations
                 name: "ExerciseMuscles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
                     ExerciseId = table.Column<int>(type: "INTEGER", nullable: false),
-                    MuscleId = table.Column<int>(type: "INTEGER", nullable: false)
+                    MuscleId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExerciseMuscles", x => x.Id);
+                    table.PrimaryKey("PK_ExerciseMuscles", x => new { x.ExerciseId, x.MuscleId });
                     table.ForeignKey(
                         name: "FK_ExerciseMuscles_Exercises_ExerciseId",
                         column: x => x.ExerciseId,
@@ -239,9 +241,9 @@ namespace GymLogger.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     SessionId = table.Column<int>(type: "INTEGER", nullable: false),
                     ExerciseId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Weight = table.Column<double>(type: "REAL", nullable: true),
-                    NofRepetitions = table.Column<int>(type: "INTEGER", nullable: true),
-                    NofSets = table.Column<int>(type: "INTEGER", nullable: true),
+                    Weight = table.Column<double>(type: "REAL", nullable: false),
+                    NofRepetitions = table.Column<int>(type: "INTEGER", nullable: false),
+                    NofSets = table.Column<int>(type: "INTEGER", nullable: false),
                     IsSingleSet = table.Column<bool>(type: "INTEGER", nullable: false),
                     DateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Note = table.Column<string>(type: "TEXT", nullable: true)
@@ -261,6 +263,108 @@ namespace GymLogger.Migrations
                         principalTable: "Sessions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Exercises",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Bench Press" },
+                    { 2, "Squat" },
+                    { 3, "Deadlift" },
+                    { 4, "Weighted Pull-ups" },
+                    { 5, "Clean" },
+                    { 6, "Bulgarian Split Squat" },
+                    { 7, "Romanian Deadlift" },
+                    { 8, "Biceps Curl" },
+                    { 9, "Weighted Lunges" },
+                    { 10, "Calf Raises" },
+                    { 11, "Triceps Extension" },
+                    { 12, "Leg Extensions" },
+                    { 13, "Leg Raises" },
+                    { 14, "Overhead Press" },
+                    { 15, "Rows" },
+                    { 16, "Shoulder Press" },
+                    { 17, "Hip Thrust" },
+                    { 18, "Kettlebell Swing" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Muscles",
+                columns: new[] { "Id", "Importance", "Name" },
+                values: new object[,]
+                {
+                    { 1, 4, "Hamstrings" },
+                    { 2, 5, "Quadriceps" },
+                    { 3, 5, "Glutes" },
+                    { 4, 2, "Calves" },
+                    { 5, 5, "Chest" },
+                    { 6, 5, "Back" },
+                    { 7, 4, "Shoulders" },
+                    { 8, 3, "Biceps" },
+                    { 9, 3, "Triceps" },
+                    { 10, 1, "Forearms" },
+                    { 11, 3, "Core" },
+                    { 12, 2, "Trapezius" },
+                    { 13, 1, "Adductors" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ExerciseMuscles",
+                columns: new[] { "ExerciseId", "MuscleId", "Id" },
+                values: new object[,]
+                {
+                    { 1, 5, 0 },
+                    { 1, 7, 0 },
+                    { 1, 9, 0 },
+                    { 2, 1, 0 },
+                    { 2, 2, 0 },
+                    { 2, 3, 0 },
+                    { 2, 13, 0 },
+                    { 3, 1, 0 },
+                    { 3, 3, 0 },
+                    { 3, 6, 0 },
+                    { 3, 10, 0 },
+                    { 3, 11, 0 },
+                    { 3, 12, 0 },
+                    { 4, 6, 0 },
+                    { 4, 10, 0 },
+                    { 5, 1, 0 },
+                    { 5, 2, 0 },
+                    { 5, 3, 0 },
+                    { 5, 7, 0 },
+                    { 5, 11, 0 },
+                    { 5, 12, 0 },
+                    { 6, 1, 0 },
+                    { 6, 2, 0 },
+                    { 6, 3, 0 },
+                    { 7, 1, 0 },
+                    { 7, 3, 0 },
+                    { 7, 6, 0 },
+                    { 8, 8, 0 },
+                    { 8, 10, 0 },
+                    { 9, 1, 0 },
+                    { 9, 2, 0 },
+                    { 9, 3, 0 },
+                    { 10, 4, 0 },
+                    { 11, 9, 0 },
+                    { 12, 2, 0 },
+                    { 13, 3, 0 },
+                    { 13, 11, 0 },
+                    { 14, 7, 0 },
+                    { 14, 12, 0 },
+                    { 15, 6, 0 },
+                    { 15, 10, 0 },
+                    { 15, 12, 0 },
+                    { 16, 7, 0 },
+                    { 16, 12, 0 },
+                    { 17, 1, 0 },
+                    { 17, 3, 0 },
+                    { 17, 11, 0 },
+                    { 18, 1, 0 },
+                    { 18, 3, 0 },
+                    { 18, 11, 0 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -299,11 +403,6 @@ namespace GymLogger.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExerciseMuscles_ExerciseId",
-                table: "ExerciseMuscles",
-                column: "ExerciseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExerciseMuscles_MuscleId",

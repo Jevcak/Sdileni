@@ -16,7 +16,7 @@ namespace GymLogger.Pages
         {
             if (_signInManager.IsSignedIn(User))
             {
-                return RedirectToPage("/Dashboard/Index");
+                return RedirectToPage("/Sessions/Index");
             }
 
             return Page();

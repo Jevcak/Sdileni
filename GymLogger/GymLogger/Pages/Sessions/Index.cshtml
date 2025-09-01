@@ -3,31 +3,121 @@
 @{
     ViewData["Title"] = "My training sessions";
 }
-<h1>My training sessions</h1>
+<h1>Dashboard</h1>
 
-@if (!Model.Sessions.Any())
-{
-    <p>No training sessions yet! 🏋️‍</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Total Weight lifted</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var session in Model.Sessions)
-            {
-                <tr>
-                    <td>@session.Name</td>
-                    <td>@session.Date.ToString("dd.MM.yyyy HH:mm")</td>
-                    <td>@session.TotalWeightLifted.ToString()kg</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<div class="grid-container">
+    <div class="grid-item">
+        <h2>Add new exercise</h2>
+        <form method="post" id="sessionForm">
+            <div class="form-group">
+                <label for="NewSession.Name">Session name</label>
+                <span class="text-info" title="If a recent session exists within the last 4 hours, your exercise will be added to it automatically.">
+                    &#9432;
+                </span>
+                <input asp-for="NewSession.Name" class="form-control" type="text" />
+            </div>
+            <div class="form-group">
+                <label>Exercise</label>
+                <select asp-for="NewExerciseSession.ExerciseId" asp-items="Model.Exercises" class="form-control"></select>
+            </div>
+            <div class="form-group d-flex gap-3">
+                <div class="flex-item">
+                    <label for="NewExerciseSession_Weight">Weight (kg)</label>
+                    <input asp-for="NewExerciseSession.Weight" class="form-control" type="number" step="0.5" />
+                </div>
+                <div class="flex-item">
+                    <label for="NewExerciseSession_NofRepetitions">Repetitions</label>
+                    <input asp-for="NewExerciseSession.NofRepetitions" class="form-control" type="number" />
+                </div>
+                <div class="flex-item">
+                    <label for="NewExerciseSession_NofSets">Sets</label>
+                    <input asp-for="NewExerciseSession.NofSets" class="form-control" type="number" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="NewExerciseSession_Note">Note</label>
+                <textarea asp-for="NewExerciseSession.Note" class="form-control"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success mt-2">Save exercise</button>
+        </form>
+    </div>
+    <div class="grid-item">
+        <h2>Traning sessions overview</h2>
+        @if (!Model.Sessions.Any())
+        {
+            <p>Add your first training session now! 🏋️‍</p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Total Weight lifted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var session in Model.Sessions)
+                    {
+                        <tr>
+                            <td>@session.Name</td>
+                            <td>@session.Date.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@session.TotalWeightLifted.ToString() kg</td>
+                            <td>
+                                <a asp-page="/Sessions/Details" asp-route-id="@session.Id" class="btn btn-primary btn-sm">View Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+    <div class="grid-item">
+        <h2>Last session details</h2>
+        <p>Obsah bloku 3, např. formulář pro nový cvik.</p>
+    </div>
+    <div class="grid-item">
+        <h2>Progress</h2>
+        <p>Obsah bloku 4, např. poslední cvičení nebo poznámky.</p>
+    </div>
+</div>
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* two columns */
+        grid-template-rows: 1fr 1fr; /* two rows */
+        gap: 10px;
+        height: contain; /* fill the full viewport height */
+        width: contain; /* fill the full viewport width */
+    }
+
+    .grid-item {
+        padding: 20px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-sizing: border-box;
+        overflow: auto; /* optional: scroll if content is too large */
+    }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .gap-3 {
+        gap: 15px; /* mezera mezi sloupci */
+    }
+
+    .flex-item {
+        flex: 1; /* každý input zabere stejnou šířku */
+    }
+</style>
