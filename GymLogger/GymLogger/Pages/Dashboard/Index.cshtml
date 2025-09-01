@@ -5,50 +5,48 @@
 @{
 	<h1>Vítej, @UserManager.GetUserName(User)!</h1>
 
-	<p>Zobrazit přehled tréninků</p>
-	<a asp-page="/Sessions/Index">Moje tréninky</a>
+	<p>View training sessions</p>
+	<a asp-page="/Sessions/Index">My sessions</a>
 
-    <h2>Přidat nový trénink</h2>
+    <h2>Add new session</h2>
 
     <form method="post" id="sessionForm">
         <div class="form-group">
-            <label>Vyber trénink</label>
+            <label>Choose session</label>
             <select asp-for="SelectedSessionId" class="form-control" id="sessionSelect">
                 @if (Model.LastSession != null)
                 {
-                    <option value="@Model.LastSession.Id">Přidat k poslednímu tréninku: @Model.LastSession.Name</option>
+                    <option value="@Model.LastSession.Id">Add exercise to last session: @Model.LastSession.Name</option>
                 }
-                <option value="">Zvolit vlastní název</option>
+                <option value="">Create new session</option>
             </select>
         </div>
 
         <input type="hidden" asp-for="NewSession.Name" id="newSessionName" />
 
-        <h3>Cvik</h3>
+        <h3>New Exercise</h3>
         <div class="form-group">
-            <label>Cvik</label>
+            <label>Exercise</label>
             <select asp-for="NewExerciseSession.ExerciseId" asp-items="Model.Exercises" class="form-control"></select>
-            <small>nebo přidej nový cvik:</small>
-            <input asp-for="NewExerciseName" class="form-control mt-1" placeholder="Nový cvik..." />
         </div>
         <div class="form-group">
-            <label for="NewExerciseSession_Weight">Váha (kg)</label>
+            <label for="NewExerciseSession_Weight">Weight (kg)</label>
             <input asp-for="NewExerciseSession.Weight" class="form-control" type="number" step="0.5" />
         </div>
         <div class="form-group">
-            <label for="NewExerciseSession_NofRepetitions">Počet opakování</label>
+            <label for="NewExerciseSession_NofRepetitions">Number of repetitions</label>
             <input asp-for="NewExerciseSession.NofRepetitions" class="form-control" type="number" />
         </div>
         <div class="form-group">
-            <label for="NewExerciseSession_NofSets">Počet sérií</label>
+            <label for="NewExerciseSession_NofSets">Number of sets</label>
             <input asp-for="NewExerciseSession.NofSets" class="form-control" type="number" />
         </div>
         <div class="form-group">
-            <label for="NewExerciseSession_Note">Poznámka</label>
+            <label for="NewExerciseSession_Note">Note</label>
             <textarea asp-for="NewExerciseSession.Note" class="form-control"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-success mt-2">Uložit</button>
+        <button type="submit" class="btn btn-success mt-2">Save exercise</button>
     </form>
 }
 
@@ -59,9 +57,9 @@
             const hiddenInput = document.getElementById("newSessionName");
 
             if (select.value === "") {
-                let name = prompt("Zadejte název nového tréninku:");
+                let name = prompt("Enter new session name:");
                 if (!name || name.trim() === "") {
-                    alert("Musíte zadat název tréninku!");
+                    alert("You have to enter new session name!");
                     e.preventDefault();
                     return;
                 }

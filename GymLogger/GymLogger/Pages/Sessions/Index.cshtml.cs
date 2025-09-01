@@ -29,6 +29,9 @@ namespace GymLogger.Pages.Sessions
                 .Where(s => s.UserId == user.Id)
                 .OrderByDescending(s => s.Date)
                 .ToListAsync();
+            var sessions = await _context.Sessions
+                .Include(s => s.ExerciseSessions)
+                .ToListAsync();
         }
     }
 }

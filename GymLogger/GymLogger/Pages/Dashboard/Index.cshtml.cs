@@ -42,13 +42,23 @@ namespace GymLogger.Pages.Dashboard
             PredefinedSessionNames = new SelectList(new List<string> { "Push Day", "Pull Day", "Leg Day" });
             var user = await _userManager.GetUserAsync(User);
 
-            var now = DateTime.Now;
+            if (user == null)
+            {
+                RedirectToPage("/Account/Login");
+                return;
+            }
+
             LastSession = await _context.Sessions
-                .Where(s => s.UserId == user.Id &&
-                            s.Date >= now.AddHours(-3) &&
-                            s.Date <= now.AddHours(3))
+                .Where(s => s.UserId == user.Id)
                 .OrderByDescending(s => s.Date)
                 .FirstOrDefaultAsync();
+
+            if (LastSession != null)
+            {
+                await _context.Entry(LastSession)
+                    .Collection(s => s.ExerciseSessions!)
+                    .LoadAsync();
+            }
 
         }
 

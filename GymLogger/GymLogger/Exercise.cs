@@ -29,6 +29,8 @@ namespace GymLogger
         public DateTime Date { get; set; } = DateTime.Now;
 
         public ICollection<ExerciseSession>? ExerciseSessions { get; set; }
+        public double TotalWeightLifted =>
+            ExerciseSessions?.Sum(es => es.Weight * es.NofRepetitions * es.NofSets) ?? 0;
     }
 
     public class Exercise
@@ -55,20 +57,22 @@ namespace GymLogger
 
         public Exercise? Exercise { get; set; }
 
-        [Range(0, 500)]
-        public double? Weight { get; set; }
+        [Required, Range(0, 500)]
+        public double Weight { get; set; }
 
-        [Range(1, 100)]
-        public int? NofRepetitions { get; set; }
+        [Required, Range(1, 100)]
+        public int NofRepetitions { get; set; }
 
-        [Range(1, 50)]
-        public int? NofSets { get; set; }
+        [Required, Range(1, 50)]
+        public int NofSets { get; set; }
 
         public bool IsSingleSet { get; set; } = false;
 
         public DateTime DateTime { get; set; } = DateTime.Now;
 
         public string? Note { get; set; }
+        public int TotalWeight => (int)(Weight * NofRepetitions * NofSets);
+
     }
 
     public class Muscle

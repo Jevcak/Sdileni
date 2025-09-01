@@ -1,21 +1,22 @@
 ﻿@page
 @model GymLogger.Pages.Sessions.IndexModel
 @{
-    ViewData["Title"] = "Moje tréninky";
+    ViewData["Title"] = "My training sessions";
 }
-<h1>Moje tréninky</h1>
+<h1>My training sessions</h1>
 
 @if (!Model.Sessions.Any())
 {
-    <p>Zatím nemáš žádný trénink. 🏋️‍♂️</p>
+    <p>No training sessions yet! 🏋️‍</p>
 }
 else
 {
     <table class="table">
         <thead>
             <tr>
-                <th>Název</th>
-                <th>Datum</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Total Weight lifted</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@ else
                 <tr>
                     <td>@session.Name</td>
                     <td>@session.Date.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@session.TotalWeightLifted.ToString()kg</td>
                 </tr>
             }
         </tbody>
