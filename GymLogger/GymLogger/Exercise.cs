@@ -8,9 +8,9 @@ namespace GymLogger
     {
         [Required, StringLength(50)]
         public string FullName { get; set; } = string.Empty;
-        public int? Weight { get; set; }
-        public int? Height { get; set; }
-        public DateOnly? BirthDate { get; set; }    
+        public double Weight { get; set; }
+        public double Height { get; set; }
+        public DateOnly BirthDate { get; set; }    
         public ICollection<Session>? Sessions { get; set; }
     }
 
