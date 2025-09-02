@@ -12,14 +12,14 @@ namespace GymLogger.Pages.Sessions
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<GymLogger.User> _userManager;
+        private readonly UserManager<User> _userManager;
         [BindProperty]
         public ExerciseSession NewExerciseSession { get; set; } = new();
         public SelectList Exercises { get; set; } = default!;
         [BindProperty]
         public Session NewSession { get; set; } = new();
 
-        public IndexModel(ApplicationDbContext context, UserManager<GymLogger.User> userManager)
+        public IndexModel(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -92,7 +92,7 @@ namespace GymLogger.Pages.Sessions
         public async Task<IActionResult>? OnGetDownloadCsvAsync()
         {
             var userId = _userManager.GetUserId(User);
-            var handler = new CSVHandler();
+            var handler = new CSVHandler(_context,_userManager);
             var sessions = await _context.Sessions
                 .Where(s => s.UserId == userId)
                 .Include(s => s.ExerciseSessions)!
@@ -104,8 +104,6 @@ namespace GymLogger.Pages.Sessions
             var bytes = System.Text.Encoding.UTF8.GetBytes(csvContent);
             return File(bytes, "text/csv", $"sessions_{DateTime.Now.ToShortDateString()}.csv");
         }
-        [BindProperty]
-        public IFormFile CsvFile { get; set; } = default!;
         public async Task<IActionResult> OnPostUploadCsvAsync(IFormFile csvFile)
         {
             if (csvFile == null || csvFile.Length == 0)
