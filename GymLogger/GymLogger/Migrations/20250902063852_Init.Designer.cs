@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymLogger.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250901160900_Initial")]
-    partial class Initial
+    [Migration("20250902063852_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -136,9 +136,6 @@ namespace GymLogger.Migrations
                     b.Property<int>("MuscleId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("ExerciseId", "MuscleId");
 
                     b.HasIndex("MuscleId");
@@ -149,302 +146,252 @@ namespace GymLogger.Migrations
                         new
                         {
                             ExerciseId = 1,
-                            MuscleId = 5,
-                            Id = 0
+                            MuscleId = 5
                         },
                         new
                         {
                             ExerciseId = 1,
-                            MuscleId = 7,
-                            Id = 0
+                            MuscleId = 7
                         },
                         new
                         {
                             ExerciseId = 1,
-                            MuscleId = 9,
-                            Id = 0
+                            MuscleId = 9
                         },
                         new
                         {
                             ExerciseId = 2,
-                            MuscleId = 2,
-                            Id = 0
+                            MuscleId = 2
                         },
                         new
                         {
                             ExerciseId = 2,
-                            MuscleId = 1,
-                            Id = 0
+                            MuscleId = 1
                         },
                         new
                         {
                             ExerciseId = 2,
-                            MuscleId = 3,
-                            Id = 0
+                            MuscleId = 3
                         },
                         new
                         {
                             ExerciseId = 2,
-                            MuscleId = 13,
-                            Id = 0
+                            MuscleId = 13
                         },
                         new
                         {
                             ExerciseId = 3,
-                            MuscleId = 1,
-                            Id = 0
+                            MuscleId = 1
                         },
                         new
                         {
                             ExerciseId = 3,
-                            MuscleId = 3,
-                            Id = 0
+                            MuscleId = 3
                         },
                         new
                         {
                             ExerciseId = 3,
-                            MuscleId = 6,
-                            Id = 0
+                            MuscleId = 6
                         },
                         new
                         {
                             ExerciseId = 3,
-                            MuscleId = 10,
-                            Id = 0
+                            MuscleId = 10
                         },
                         new
                         {
                             ExerciseId = 3,
-                            MuscleId = 12,
-                            Id = 0
+                            MuscleId = 12
                         },
                         new
                         {
                             ExerciseId = 3,
-                            MuscleId = 11,
-                            Id = 0
+                            MuscleId = 11
                         },
                         new
                         {
                             ExerciseId = 4,
-                            MuscleId = 6,
-                            Id = 0
+                            MuscleId = 6
                         },
                         new
                         {
                             ExerciseId = 4,
-                            MuscleId = 10,
-                            Id = 0
+                            MuscleId = 10
                         },
                         new
                         {
                             ExerciseId = 5,
-                            MuscleId = 2,
-                            Id = 0
+                            MuscleId = 2
                         },
                         new
                         {
                             ExerciseId = 5,
-                            MuscleId = 1,
-                            Id = 0
+                            MuscleId = 1
                         },
                         new
                         {
                             ExerciseId = 5,
-                            MuscleId = 3,
-                            Id = 0
+                            MuscleId = 3
                         },
                         new
                         {
                             ExerciseId = 5,
-                            MuscleId = 7,
-                            Id = 0
+                            MuscleId = 7
                         },
                         new
                         {
                             ExerciseId = 5,
-                            MuscleId = 12,
-                            Id = 0
+                            MuscleId = 12
                         },
                         new
                         {
                             ExerciseId = 5,
-                            MuscleId = 11,
-                            Id = 0
+                            MuscleId = 11
                         },
                         new
                         {
                             ExerciseId = 6,
-                            MuscleId = 2,
-                            Id = 0
+                            MuscleId = 2
                         },
                         new
                         {
                             ExerciseId = 6,
-                            MuscleId = 1,
-                            Id = 0
+                            MuscleId = 1
                         },
                         new
                         {
                             ExerciseId = 6,
-                            MuscleId = 3,
-                            Id = 0
+                            MuscleId = 3
                         },
                         new
                         {
                             ExerciseId = 7,
-                            MuscleId = 1,
-                            Id = 0
+                            MuscleId = 1
                         },
                         new
                         {
                             ExerciseId = 7,
-                            MuscleId = 3,
-                            Id = 0
+                            MuscleId = 3
                         },
                         new
                         {
                             ExerciseId = 7,
-                            MuscleId = 6,
-                            Id = 0
+                            MuscleId = 6
                         },
                         new
                         {
                             ExerciseId = 8,
-                            MuscleId = 8,
-                            Id = 0
+                            MuscleId = 8
                         },
                         new
                         {
                             ExerciseId = 8,
-                            MuscleId = 10,
-                            Id = 0
+                            MuscleId = 10
                         },
                         new
                         {
                             ExerciseId = 9,
-                            MuscleId = 2,
-                            Id = 0
+                            MuscleId = 2
                         },
                         new
                         {
                             ExerciseId = 9,
-                            MuscleId = 1,
-                            Id = 0
+                            MuscleId = 1
                         },
                         new
                         {
                             ExerciseId = 9,
-                            MuscleId = 3,
-                            Id = 0
+                            MuscleId = 3
                         },
                         new
                         {
                             ExerciseId = 10,
-                            MuscleId = 4,
-                            Id = 0
+                            MuscleId = 4
                         },
                         new
                         {
                             ExerciseId = 11,
-                            MuscleId = 9,
-                            Id = 0
+                            MuscleId = 9
                         },
                         new
                         {
                             ExerciseId = 12,
-                            MuscleId = 2,
-                            Id = 0
+                            MuscleId = 2
                         },
                         new
                         {
                             ExerciseId = 13,
-                            MuscleId = 11,
-                            Id = 0
+                            MuscleId = 11
                         },
                         new
                         {
                             ExerciseId = 13,
-                            MuscleId = 3,
-                            Id = 0
+                            MuscleId = 3
                         },
                         new
                         {
                             ExerciseId = 14,
-                            MuscleId = 7,
-                            Id = 0
+                            MuscleId = 7
                         },
                         new
                         {
                             ExerciseId = 14,
-                            MuscleId = 12,
-                            Id = 0
+                            MuscleId = 12
                         },
                         new
                         {
                             ExerciseId = 15,
-                            MuscleId = 6,
-                            Id = 0
+                            MuscleId = 6
                         },
                         new
                         {
                             ExerciseId = 15,
-                            MuscleId = 10,
-                            Id = 0
+                            MuscleId = 10
                         },
                         new
                         {
                             ExerciseId = 15,
-                            MuscleId = 12,
-                            Id = 0
+                            MuscleId = 12
                         },
                         new
                         {
                             ExerciseId = 16,
-                            MuscleId = 7,
-                            Id = 0
+                            MuscleId = 7
                         },
                         new
                         {
                             ExerciseId = 16,
-                            MuscleId = 12,
-                            Id = 0
+                            MuscleId = 12
                         },
                         new
                         {
                             ExerciseId = 17,
-                            MuscleId = 3,
-                            Id = 0
+                            MuscleId = 3
                         },
                         new
                         {
                             ExerciseId = 17,
-                            MuscleId = 1,
-                            Id = 0
+                            MuscleId = 1
                         },
                         new
                         {
                             ExerciseId = 17,
-                            MuscleId = 11,
-                            Id = 0
+                            MuscleId = 11
                         },
                         new
                         {
                             ExerciseId = 18,
-                            MuscleId = 1,
-                            Id = 0
+                            MuscleId = 1
                         },
                         new
                         {
                             ExerciseId = 18,
-                            MuscleId = 3,
-                            Id = 0
+                            MuscleId = 3
                         },
                         new
                         {
                             ExerciseId = 18,
-                            MuscleId = 11,
-                            Id = 0
+                            MuscleId = 11
                         });
                 });
 
@@ -621,6 +568,9 @@ namespace GymLogger.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateOnly?>("BirthDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
@@ -636,6 +586,9 @@ namespace GymLogger.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("Height")
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
@@ -669,6 +622,9 @@ namespace GymLogger.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("Weight")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

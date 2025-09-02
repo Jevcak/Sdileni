@@ -315,7 +315,6 @@ C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net9.0\compressed\nezrqnk58
 C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net9.0\compressed\v0zgfp0y55-87fc7y1x7t.gz
 C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net9.0\compressed\x8814gnuc0-0ek38g7dyn.gz
 C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net9.0\compressed\76ww9mzegy-0ek38g7dyn.gz
-C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\Microsoft.Build.dll
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\Microsoft.Build.Framework.dll
@@ -433,3 +432,4 @@ C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\ru\Microsoft.CodeAna
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

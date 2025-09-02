@@ -60,11 +60,11 @@ namespace GymLogger.Pages.Sessions
             if (user == null)
                 return RedirectToPage("/Account/Login");
 
-            if (string.IsNullOrWhiteSpace(NewSession.Name))
-            {
-                ModelState.AddModelError("NewSession.Name", "You must enter a name for the new session.");
-                return Page();
-            }
+            //if (string.IsNullOrWhiteSpace(NewSession.Name))
+            //{
+            //    ModelState.AddModelError("NewSession.Name", "You must enter a name for the new session.");
+            //    return Page();
+            //}
             // kdyz existuje nedavna session tak pridavam cviky do ni
             var recentSession = await _context.Sessions
                 .Where(s => s.UserId == user.Id && s.Date >= DateTime.Now.AddHours(-4))
@@ -74,6 +74,11 @@ namespace GymLogger.Pages.Sessions
             if (recentSession != null)
             {
                 NewExerciseSession.SessionId = recentSession.Id;
+            }
+            else if (string.IsNullOrWhiteSpace(NewSession.Name))
+            {
+                ModelState.AddModelError("NewSession.Name", "You must enter a name for the new session.");
+                return Page();
             }
             else
             {

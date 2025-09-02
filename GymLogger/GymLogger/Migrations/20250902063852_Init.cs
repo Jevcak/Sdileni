@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GymLogger.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,6 +33,9 @@ namespace GymLogger.Migrations
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     FullName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Weight = table.Column<int>(type: "INTEGER", nullable: true),
+                    Height = table.Column<int>(type: "INTEGER", nullable: true),
+                    BirthDate = table.Column<DateOnly>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -213,8 +216,7 @@ namespace GymLogger.Migrations
                 columns: table => new
                 {
                     ExerciseId = table.Column<int>(type: "INTEGER", nullable: false),
-                    MuscleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    MuscleId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -312,59 +314,59 @@ namespace GymLogger.Migrations
 
             migrationBuilder.InsertData(
                 table: "ExerciseMuscles",
-                columns: new[] { "ExerciseId", "MuscleId", "Id" },
+                columns: new[] { "ExerciseId", "MuscleId" },
                 values: new object[,]
                 {
-                    { 1, 5, 0 },
-                    { 1, 7, 0 },
-                    { 1, 9, 0 },
-                    { 2, 1, 0 },
-                    { 2, 2, 0 },
-                    { 2, 3, 0 },
-                    { 2, 13, 0 },
-                    { 3, 1, 0 },
-                    { 3, 3, 0 },
-                    { 3, 6, 0 },
-                    { 3, 10, 0 },
-                    { 3, 11, 0 },
-                    { 3, 12, 0 },
-                    { 4, 6, 0 },
-                    { 4, 10, 0 },
-                    { 5, 1, 0 },
-                    { 5, 2, 0 },
-                    { 5, 3, 0 },
-                    { 5, 7, 0 },
-                    { 5, 11, 0 },
-                    { 5, 12, 0 },
-                    { 6, 1, 0 },
-                    { 6, 2, 0 },
-                    { 6, 3, 0 },
-                    { 7, 1, 0 },
-                    { 7, 3, 0 },
-                    { 7, 6, 0 },
-                    { 8, 8, 0 },
-                    { 8, 10, 0 },
-                    { 9, 1, 0 },
-                    { 9, 2, 0 },
-                    { 9, 3, 0 },
-                    { 10, 4, 0 },
-                    { 11, 9, 0 },
-                    { 12, 2, 0 },
-                    { 13, 3, 0 },
-                    { 13, 11, 0 },
-                    { 14, 7, 0 },
-                    { 14, 12, 0 },
-                    { 15, 6, 0 },
-                    { 15, 10, 0 },
-                    { 15, 12, 0 },
-                    { 16, 7, 0 },
-                    { 16, 12, 0 },
-                    { 17, 1, 0 },
-                    { 17, 3, 0 },
-                    { 17, 11, 0 },
-                    { 18, 1, 0 },
-                    { 18, 3, 0 },
-                    { 18, 11, 0 }
+                    { 1, 5 },
+                    { 1, 7 },
+                    { 1, 9 },
+                    { 2, 1 },
+                    { 2, 2 },
+                    { 2, 3 },
+                    { 2, 13 },
+                    { 3, 1 },
+                    { 3, 3 },
+                    { 3, 6 },
+                    { 3, 10 },
+                    { 3, 11 },
+                    { 3, 12 },
+                    { 4, 6 },
+                    { 4, 10 },
+                    { 5, 1 },
+                    { 5, 2 },
+                    { 5, 3 },
+                    { 5, 7 },
+                    { 5, 11 },
+                    { 5, 12 },
+                    { 6, 1 },
+                    { 6, 2 },
+                    { 6, 3 },
+                    { 7, 1 },
+                    { 7, 3 },
+                    { 7, 6 },
+                    { 8, 8 },
+                    { 8, 10 },
+                    { 9, 1 },
+                    { 9, 2 },
+                    { 9, 3 },
+                    { 10, 4 },
+                    { 11, 9 },
+                    { 12, 2 },
+                    { 13, 3 },
+                    { 13, 11 },
+                    { 14, 7 },
+                    { 14, 12 },
+                    { 15, 6 },
+                    { 15, 10 },
+                    { 15, 12 },
+                    { 16, 7 },
+                    { 16, 12 },
+                    { 17, 1 },
+                    { 17, 3 },
+                    { 17, 11 },
+                    { 18, 1 },
+                    { 18, 3 },
+                    { 18, 11 }
                 });
 
             migrationBuilder.CreateIndex(
