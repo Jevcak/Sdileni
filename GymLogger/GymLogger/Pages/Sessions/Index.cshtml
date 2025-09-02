@@ -44,6 +44,13 @@
     </div>
     <div class="grid-item">
         <h2>Traning sessions overview</h2>
+        @if (TempData["UploadError"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @TempData["UploadError"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
         @if (!Model.Sessions.Any())
         {
             <p>Add your first training session now! 🏋️‍</p>
@@ -73,6 +80,17 @@
                     }
                 </tbody>
             </table>
+            <div class="bottom d-flex gap-2 align-items-center">
+                <a asp-page="./Index"
+                   asp-page-handler="DownloadCsv"
+                   class="btn btn-primary">
+                    Download CSV
+                </a>
+                <form asp-page="./Index" asp-page-handler="UploadCsv" method="post" enctype="multipart/form-data" class="d-flex gap-1 align-items-stretch m-0 p-0">
+                    <input type="file" name="csvFile" class="form-control" style="height: calc(2.25rem + 2px); width: auto;" />
+                    <button type="submit" class="btn btn-primary" style="height: calc(2.25rem + 2px);">Upload CSV</button>
+                </form>
+            </div>
         }
     </div>
     <div class="grid-item">
@@ -88,12 +106,6 @@
                         <strong>Total volume:</strong>
                         @Model.LastSession.TotalWeightLifted.ToString() kg
                     </p>
-                    <a asp-page="./Index"
-                       asp-page-handler="DownloadCsv"
-                       asp-route-id="@Model.LastSession.Id"
-                       class="btn btn-primary mt-2">
-                        Download CSV
-                    </a>
                 </div>
             </div>
         }
@@ -124,14 +136,19 @@
     }
 
     .grid-item {
+        display: flex;
+        flex-direction: column;
         padding: 20px;
         border: 1px solid #ccc;
         background-color: #f9f9f9;
         border-radius: 8px;
         box-sizing: border-box;
-        overflow: auto; /* optional: scroll if content is too large */
+        overflow: auto;
     }
 
+    .grid-item .bottom {
+        margin-top: auto;
+    }
     .d-flex {
         display: flex;
     }
