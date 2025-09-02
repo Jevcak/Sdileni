@@ -6,9 +6,9 @@ namespace GymLogger.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly SignInManager<User> _signInManager;
+        private readonly SignInManager<GymLogger.User> _signInManager;
 
-        public IndexModel(SignInManager<User> signInManager)
+        public IndexModel(SignInManager<GymLogger.User> signInManager)
         {
             _signInManager = signInManager;
         }

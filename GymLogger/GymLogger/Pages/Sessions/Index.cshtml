@@ -77,7 +77,30 @@
     </div>
     <div class="grid-item">
         <h2>Last session details</h2>
-        <p>Obsah bloku 3, např. formulář pro nový cvik.</p>
+        @if (Model.LastSession != null)
+        {
+            <div class="card mt-3">
+                <div class="card-body">
+                    <p><strong>Name:</strong> @Model.LastSession.Name</p>
+                    <p><strong>Date:</strong> @Model.LastSession.Date.ToShortDateString()</p>
+                    <p><strong>Exercises count:</strong> @Model.LastSession.ExerciseSessions!.Count()</p>
+                    <p>
+                        <strong>Total volume:</strong>
+                        @Model.LastSession.TotalWeightLifted.ToString() kg
+                    </p>
+                    <a asp-page="./Index"
+                       asp-page-handler="DownloadCsv"
+                       asp-route-id="@Model.LastSession.Id"
+                       class="btn btn-primary mt-2">
+                        Download CSV
+                    </a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <p>Add your first training session now! 🏋️‍</p>
+        }
     </div>
     <div class="grid-item">
         <h2>Progress</h2>
