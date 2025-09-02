@@ -4,32 +4,44 @@
     ViewData["Title"] = "Session Details";
 }
 
-<h2>@Model.Session.Name (@Model.Session.Date.ToString("dd.MM.yyyy HH:mm"))</h2>
+<h2>@Model.Session!.Name (@Model.Session.Date.ToString("dd.MM.yyyy HH:mm"))</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Exercise</th>
-            <th>Muscles</th>
-            <th>Weight (kg)</th>
-            <th>Repetitions</th>
-            <th>Sets</th>
-            <th>Notes</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var es in Model.ExerciseSessions)
-        {
+<form method="post">
+    <table class="table">
+        <thead>
             <tr>
-                <td>@es.Exercise!.Name</td>
-                <td>
-                    @string.Join(", ", es.Exercise.ExerciseMuscles!.Select(em => em.Muscle!.Name))
-                </td>
-                <td>@es.Weight</td>
-                <td>@es.NofRepetitions</td>
-                <td>@es.NofSets</td>
-                <td>@es.Note</td>
+                <th>Exercise</th>
+                <th>Muscles</th>
+                <th>Weight (kg)</th>
+                <th>Repetitions</th>
+                <th>Sets</th>
+                <th>Notes</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.ExerciseSessions.Count; i++)
+            {
+                <tr>
+                    <td>@Model.ExerciseSessions[i].Exercise!.Name</td>
+                    <td>
+                        @string.Join(", ", Model.ExerciseSessions[i].Exercise!.ExerciseMuscles!.Select(em => em.Muscle!.Name))
+                    </td>
+                    <td>
+                        <input asp-for="ExerciseSessions[i].Weight" class="form-control" type="number" />
+                    </td>
+                    <td>
+                        <input asp-for="ExerciseSessions[i].NofRepetitions" class="form-control" type="number" />
+                    </td>
+                    <td>
+                        <input asp-for="ExerciseSessions[i].NofSets" class="form-control" type="number" />
+                    </td>
+                    <td>
+                        <input asp-for="ExerciseSessions[i].Note" class="form-control" type="text" />
+                    </td>
+                    <input type="hidden" asp-for="ExerciseSessions[i].Id" />
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
