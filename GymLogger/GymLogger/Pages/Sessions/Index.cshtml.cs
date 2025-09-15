@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using ScottPlot;
+
 
 namespace GymLogger.Pages.Sessions
 {
@@ -19,6 +21,7 @@ namespace GymLogger.Pages.Sessions
         [BindProperty]
         public Session NewSession { get; set; } = new();
 
+
         public IndexModel(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
@@ -31,6 +34,17 @@ namespace GymLogger.Pages.Sessions
 
         public async Task OnGetAsync()
         {
+            // hodilo by se to napsat do samostatny knihovny
+            Plot myPlot = new();
+
+            double[] dataX = { 1, 2, 3, 4, 5 };
+            double[] dataY = { 1, 4, 9, 16, 25 };
+
+            myPlot.Add.Scatter(dataX, dataY);
+
+            myPlot.SavePng("wwwroot/chart.png", 400, 300);
+
+
             Exercises = new SelectList(await _context.Exercises.ToListAsync(), "Id", "Name");
             var user = await _userManager.GetUserAsync(User);
 
@@ -52,7 +66,6 @@ namespace GymLogger.Pages.Sessions
                     .ThenInclude(es => es.Exercise)
                 .OrderByDescending(s => s.Date)
                 .FirstOrDefaultAsync();
-
 
         }
         public async Task<IActionResult> OnPostAsync()
@@ -111,6 +124,8 @@ namespace GymLogger.Pages.Sessions
                 TempData["UploadError"] = "Please upload a CSV file.";
                 return RedirectToPage();
             }
+            var userId = _userManager.GetUserId(User);
+            var csvHandler = new CSVHandler(_context,_userManager, userId!);
 
             using (var reader = new StreamReader(csvFile.OpenReadStream()))
             {
@@ -119,7 +134,6 @@ namespace GymLogger.Pages.Sessions
                 {
                     var values = line.Split(',');
 
-                    // Pøíklad: oèekáváš CSV ve formátu: SessionName, Date, ExerciseName, Weight, Reps, Sets
                     var sessionName = values[0];
                     var date = DateTime.ParseExact(values[1], "dd.MM.yyyy", CultureInfo.InvariantCulture);
                     var exerciseName = values[2];
@@ -127,7 +141,6 @@ namespace GymLogger.Pages.Sessions
                     var reps = int.Parse(values[4]);
                     var sets = int.Parse(values[5]);
 
-                    // Najdi nebo vytvoø session
                     var session = await _context.Sessions
                         .FirstOrDefaultAsync(s => s.Name == sessionName);
 
@@ -143,7 +156,6 @@ namespace GymLogger.Pages.Sessions
                         await _context.SaveChangesAsync();
                     }
 
-                    // Najdi exercise
                     var exercise = await _context.Exercises.FirstOrDefaultAsync(e => e.Name == exerciseName);
                     if (exercise == null)
                     {
@@ -152,7 +164,6 @@ namespace GymLogger.Pages.Sessions
                         await _context.SaveChangesAsync();
                     }
 
-                    // Pøidej exercise session
                     var exerciseSession = new ExerciseSession
                     {
                         SessionId = session.Id,

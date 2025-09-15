@@ -67,9 +67,9 @@ namespace GymLogger
         public int NofRepetitions { get; set; }
 
         [Required, Range(1, 50)]
-        public int NofSets { get; set; }
+        public int NofSets { get; set; } = 1;
 
-        public bool IsSingleSet { get; set; } = false;
+        public bool IsSingleSet => (NofSets == 1);
 
         public DateTime DateTime { get; set; } = DateTime.Now;
 
