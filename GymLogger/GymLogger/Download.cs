@@ -53,7 +53,7 @@ namespace GymLogger
             userId = userID;            
         }
 
-        private string[] columnNames = 
+        public string[] columnNames = 
             ["SessionId","SessionName",
             "ExerciseId","ExerciseName",
             "Weight","Repetitions","Sets",
@@ -102,15 +102,22 @@ namespace GymLogger
             try
             {
                 string[] keys = csvReader.getKeys()!;
-                // add function that matches the names more
+                // add function that matches the names -- MapName
+                int j = 0;
                 for (int i = 0; i < keys.Length; i++)
                 {
                     string mappedName = MapName(keys[i]);
-                    keyOrder[mappedName] = i;
+                    if (!mappedName.Contains("Column"))
+                    {
+                        keyOrder[mappedName] = j;
+                        j++;
+                    }
                 }
                 string[]? vals = csvReader.ReadLine();
                 while (vals is not null)
                 {
+                    // haze mi to zle hodnoty vals[keyOrder[columnNames[7]]]
+                    Console.WriteLine(vals.Length);
                     bool validDate = DateTime.TryParse(vals[keyOrder[columnNames[7]]], out DateTime date);
                     bool validWeight = double.TryParse(vals[keyOrder[columnNames[4]]], out double weight);
                     bool validSets = int.TryParse(vals[keyOrder[columnNames[6]]], out int sets);
@@ -126,6 +133,12 @@ namespace GymLogger
                     bool[] bools = { validDate, validWeight, validSets, validReps };
                     if (bools.Contains(false))
                     {
+                        for (int i = 3; i < 8; i++)
+                        {
+                            Console.WriteLine(keyOrder.Keys);
+                            Console.WriteLine(vals[keyOrder[columnNames[i]]]);
+                        }
+                        throw new Exception(string.Format("validDate: {0} - {4}, validWeight: {1} - {5} , validSets: {2}, validReps: {3}",validDate, validWeight, validSets, validReps, vals[keyOrder[columnNames[7]]], vals[keyOrder[columnNames[4]]]));
                         fail += 1;
                     }
                     else
@@ -145,6 +158,7 @@ namespace GymLogger
             }
             catch (Exception ex)
             {
+                //throw;
                 return $"Upload failed: {ex.Message}";
             }
             csvReader.Dispose();
@@ -214,7 +228,8 @@ namespace GymLogger
                 if (exercise == null)
                 {
                     fail += 1;
-                    continue;
+                    throw new Exception("exercise was not found");
+                    //continue;
                 }
                 // always create new session from csv,
                 // don't try to match it with existing one
@@ -279,6 +294,10 @@ namespace GymLogger
                 }
             }
             line.Add(sb.ToString());
+            if (line.Count < 4)
+            {
+                return null; 
+            }
             return line.ToArray();
         }
         public void Dispose() 

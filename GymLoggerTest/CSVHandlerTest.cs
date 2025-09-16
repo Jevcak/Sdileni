@@ -1,4 +1,5 @@
 using GymLogger;
+using System.Diagnostics.CodeAnalysis;
 
 namespace GymLoggerTest
 {
@@ -39,6 +40,17 @@ namespace GymLoggerTest
                 Assert.Equal(columnNamesExpected[i], actual[i]);
             }
         }
+        [Fact]
+        public void ColumnNames()
+        {
+            //Arrange
+            CSVHandler csvHandler = new CSVHandler();
+            string expected = "DateTime";
+            //Act
+            string actual = csvHandler.columnNames[7];
+            //Assert
+            Assert.Equal(expected, actual);
+        }
     }
     public class CSVReaderTest
     {
@@ -63,6 +75,26 @@ namespace GymLoggerTest
             Assert.Equal("SessionId,SessionName,ExerciseId,ExerciseName,Weight,Repetitions,Sets,DateTime,Note", actual1);
             Assert.Equal("2,Prsa,1,Bench Press,100,3,3,,note", actual2);
             Assert.Equal("2,Prsa,14,Overhead Press,60,6,3,02.09.2025 11:30:26,", actual3);
+        }
+        [Fact]
+        public void ReadLineEnd()
+        {
+            //Arrange
+            string input = """
+                SessionId,SessionName,ExerciseId,ExerciseName,Weight,Repetitions,Sets,DateTime,Note
+                2,Prsa,1,Bench Press,100,3,3,,note
+                """;
+            CSVReader reader = new CSVReader(new StringReader(input));
+            //Act
+            var result = reader.ReadLine();
+            string actual1 = string.Join(",", result!);
+            result = reader.ReadLine();
+            string actual2 = string.Join(",", result!);
+            result = reader.ReadLine();
+            //Assert
+            Assert.Equal("SessionId,SessionName,ExerciseId,ExerciseName,Weight,Repetitions,Sets,DateTime,Note", actual1);
+            Assert.Equal("2,Prsa,1,Bench Press,100,3,3,,note", actual2);
+            Assert.Null(result);
         }
     }
 }
