@@ -432,7 +432,6 @@ C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\ru\Microsoft.CodeAna
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
-C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\System.Web.Razor.dll
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\System.Web.Helpers.dll
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\System.Web.WebPages.Deployment.dll
@@ -459,3 +458,4 @@ C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\runtimes\osx\native\
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\runtimes\win-arm64\native\libSkiaSharp.dll
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\runtimes\win-x64\native\libSkiaSharp.dll
 C:\Users\START\Sdileni\GymLogger\GymLogger\bin\Debug\net9.0\runtimes\win-x86\native\libSkiaSharp.dll
+C:\Users\START\Sdileni\GymLogger\GymLogger\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

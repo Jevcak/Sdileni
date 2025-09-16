@@ -105,7 +105,7 @@ namespace GymLogger.Pages.Sessions
         public async Task<IActionResult>? OnGetDownloadCsvAsync()
         {
             var userId = _userManager.GetUserId(User);
-            var handler = new CSVHandler(_context,_userManager);
+            var handler = new CSVHandler(_context,_userManager,userId!);
             var sessions = await _context.Sessions
                 .Where(s => s.UserId == userId)
                 .Include(s => s.ExerciseSessions)!
@@ -126,58 +126,9 @@ namespace GymLogger.Pages.Sessions
             }
             var userId = _userManager.GetUserId(User);
             var csvHandler = new CSVHandler(_context,_userManager, userId!);
-
-            using (var reader = new StreamReader(csvFile.OpenReadStream()))
-            {
-                string? line;
-                while ((line = await reader.ReadLineAsync()) != null)
-                {
-                    var values = line.Split(',');
-
-                    var sessionName = values[0];
-                    var date = DateTime.ParseExact(values[1], "dd.MM.yyyy", CultureInfo.InvariantCulture);
-                    var exerciseName = values[2];
-                    var weight = double.Parse(values[3]);
-                    var reps = int.Parse(values[4]);
-                    var sets = int.Parse(values[5]);
-
-                    var session = await _context.Sessions
-                        .FirstOrDefaultAsync(s => s.Name == sessionName);
-
-                    if (session == null)
-                    {
-                        session = new Session
-                        {
-                            Name = sessionName,
-                            Date = date,
-                            UserId = "TODO: add current user id"
-                        };
-                        _context.Sessions.Add(session);
-                        await _context.SaveChangesAsync();
-                    }
-
-                    var exercise = await _context.Exercises.FirstOrDefaultAsync(e => e.Name == exerciseName);
-                    if (exercise == null)
-                    {
-                        exercise = new Exercise { Name = exerciseName };
-                        _context.Exercises.Add(exercise);
-                        await _context.SaveChangesAsync();
-                    }
-
-                    var exerciseSession = new ExerciseSession
-                    {
-                        SessionId = session.Id,
-                        ExerciseId = exercise.Id,
-                        Weight = weight,
-                        NofRepetitions = reps,
-                        NofSets = sets
-                    };
-
-                    _context.ExerciseSessions.Add(exerciseSession);
-                }
-            }
-
-            await _context.SaveChangesAsync();
+            string message = csvHandler.HandleUpload(csvFile);
+            TempData["UploadError"] = message;
+            //await _context.SaveChangesAsync();
 
             return RedirectToPage();
         }
