@@ -1,3 +1,4 @@
+wwwroot\chart.png
 wwwroot\chart.png.png
 wwwroot\css\site.css
 wwwroot\favicon.ico
@@ -59,7 +60,6 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\chart.png
 C:\Users\START\Sdileni\GymLogger\GymLogger\wwwroot\css\site.css
 C:\Users\START\Sdileni\GymLogger\GymLogger\wwwroot\favicon.ico
 C:\Users\START\Sdileni\GymLogger\GymLogger\wwwroot\js\site.js

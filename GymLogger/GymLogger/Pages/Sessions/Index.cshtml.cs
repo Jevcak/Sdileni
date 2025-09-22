@@ -1,11 +1,9 @@
 using GymLogger.Data;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 using ScottPlot;
 
 
@@ -126,9 +124,50 @@ namespace GymLogger.Pages.Sessions
             }
             var userId = _userManager.GetUserId(User);
             var csvHandler = new CSVHandler(_context,_userManager, userId!);
-            string message = csvHandler.HandleUpload(csvFile);
+            var csvReader = new CSVReader(new StreamReader(csvFile.OpenReadStream()));
+            string message = csvHandler.PrepareForUpload(csvReader, out int success, out int fail);
+            //string message = csvHandler.HandleUpload(csvFile);
+            foreach (string sessionName in csvHandler.sessions.Keys)
+            {
+                // always create new session from csv,
+                // don't try to match it with existing one
+                Session session = new Session
+                {
+                    Name = sessionName,
+                    Date = csvHandler.sessions[sessionName][0].Date,
+                    UserId = userId!
+                };
+                _context!.Sessions.Add(session);
+                await _context.SaveChangesAsync();
+                foreach (SessionRow row in csvHandler.sessions[sessionName])
+                {
+                    var exercise = await _context!.Exercises.FirstOrDefaultAsync(e => e.Name == row.Exercise);
+                    // if exercise name is not in the database,
+                    // then the exercise and it's session shouldn't be added
+                    // we try to keep the exercise table clean
+                    if (exercise == null)
+                    {
+                        //fail += 1;
+                        throw new Exception("exercise was not found");
+                        //continue;
+                    }
+
+                    var exerciseSession = new ExerciseSession
+                    {
+                        SessionId = session.Id,
+                        ExerciseId = exercise.Id,
+                        Weight = row.Weight,
+                        NofRepetitions = row.Repetitions,
+                        NofSets = row.Sets,
+                        Note = row.Note,
+                    };
+
+                    _context.ExerciseSessions.Add(exerciseSession);
+                    await _context.SaveChangesAsync();
+                }
+            }
             TempData["UploadError"] = message;
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return RedirectToPage();
         }

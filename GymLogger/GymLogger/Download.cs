@@ -1,6 +1,7 @@
 ﻿using GymLogger.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration.UserSecrets;
@@ -44,7 +45,7 @@ namespace GymLogger
         private readonly ApplicationDbContext? _context;
         private readonly UserManager<User>? _userManager;
         private readonly string? userId;
-        public Dictionary<string, SessionRow> sessions = new Dictionary<string, SessionRow>();
+        public Dictionary<string, List<SessionRow>> sessions = new Dictionary<string, List<SessionRow>>();
         public CSVHandler() { }
         public CSVHandler(ApplicationDbContext context, UserManager<User> userManager, string userID)
         {
@@ -76,18 +77,6 @@ namespace GymLogger
         }
         // PrepareForUpload is different, it would be better
         // if it uploaded straight into the database
-        public string HandleUpload(IFormFile file, bool test = false)
-        {
-            var csvReader = new CSVReader(new StreamReader(file.OpenReadStream()));
-            string message = PrepareForUpload(csvReader, out int success, out int fail);
-            if (!test)
-            {
-                // make it's own function so I can properly test
-                // csv reading and overall function
-                Upload(ref fail);
-            }
-            return message;
-        }
         public string PrepareForUpload(CSVReader csvReader, out int success, out int fail)
         {
             // store succes values and missing values,
@@ -101,23 +90,14 @@ namespace GymLogger
             Dictionary<string,int> keyOrder = new Dictionary<string,int>();
             try
             {
-                string[] keys = csvReader.getKeys()!;
-                // add function that matches the names -- MapName
-                int j = 0;
-                for (int i = 0; i < keys.Length; i++)
-                {
-                    string mappedName = MapName(keys[i]);
-                    if (!mappedName.Contains("Column"))
-                    {
-                        keyOrder[mappedName] = j;
-                        j++;
-                    }
-                }
-                string[]? vals = csvReader.ReadLine();
+                string[] keys = csvReader.GetKeys()!;
+                // add function that matches the names -- GetOrder and MapName
+                keyOrder = GetOrder(keys);
+                bool size = true;
+                string[]? vals = csvReader.GetLine(out size);
                 while (vals is not null)
                 {
-                    // haze mi to zle hodnoty vals[keyOrder[columnNames[7]]]
-                    Console.WriteLine(vals.Length);
+                    // check validity of all input values
                     bool validDate = DateTime.TryParse(vals[keyOrder[columnNames[7]]], out DateTime date);
                     bool validWeight = double.TryParse(vals[keyOrder[columnNames[4]]], out double weight);
                     bool validSets = int.TryParse(vals[keyOrder[columnNames[6]]], out int sets);
@@ -130,30 +110,21 @@ namespace GymLogger
                     {
                         note = vals[keyOrder[columnNames[8]]];
                     }
-                    bool[] bools = { validDate, validWeight, validSets, validReps };
+                    bool[] bools = { validDate, validWeight, validSets, validReps, size };
                     if (bools.Contains(false))
                     {
-                        for (int i = 3; i < 8; i++)
-                        {
-                            Console.WriteLine(keyOrder.Keys);
-                            Console.WriteLine(vals[keyOrder[columnNames[i]]]);
-                        }
-                        throw new Exception(string.Format("validDate: {0} - {4}, validWeight: {1} - {5} , validSets: {2}, validReps: {3}",validDate, validWeight, validSets, validReps, vals[keyOrder[columnNames[7]]], vals[keyOrder[columnNames[4]]]));
                         fail += 1;
                     }
                     else
                     {
-                        if (sessions.ContainsKey(name))
+                        if (!sessions.ContainsKey(name))
                         {
-                            sessions[name] = new SessionRow(exercise, weight, reps, sets, date, note);
+                            sessions.Add(name,new List<SessionRow>());
                         }
-                        else
-                        {
-                            sessions.Add(name, new SessionRow(exercise, weight, reps, sets, date, note));
-                        }
+                        sessions[name].Add(new SessionRow(exercise, weight, reps, sets, date, note));
                         success += 1;
                     }
-                    vals = csvReader.ReadLine();
+                    vals = csvReader.GetLine(out size);
                 }
             }
             catch (Exception ex)
@@ -165,13 +136,32 @@ namespace GymLogger
             return string.Format("Upload successful with success rate {0}/{1}", success, fail);
 
         }
-        public string MapName(string name)
+        public Dictionary<string, int> GetOrder(string[] keys)
+        {
+            Dictionary<string, int> keyOrder = new Dictionary<string, int>();
+            string[] keyList = keyOrder.Keys.ToArray();
+            for (int i = 0; i < keys.Length; i++)
+            {
+                string mappedName = MapName(keys[i], keyList);
+                if (mappedName.Contains("invalid") || mappedName.Contains("already"))
+                {
+                    continue;
+                }
+                else
+                {
+                    keyOrder[mappedName] = i;
+                    keyList = keyOrder.Keys.ToArray();
+                }
+            }
+            return keyOrder;
+        }
+        public string MapName(string name, string[] keys)
         {
             // should also check if the column is already
             // in Dict sessions,so storing 2 values
             // in one row doesn't happen
             string actual;
-            if (name.ToLower().Contains("exercise"))
+            if (name.ToLower().Contains("exercise") && (!name.ToLower().Contains("id")))
             {
                 // columnNames[3] is "ExerciseName"
                 actual = columnNames[3];
@@ -211,64 +201,47 @@ namespace GymLogger
             {
                 actual = "invalidColumnName";
             }
-            if (sessions.ContainsKey(actual)) 
+            if (keys.Contains(actual)) 
             {
                 actual = "alreadyMappedColumn";
             }
             return actual;
         }
-        public void Upload(ref int fail)
-        {
-            foreach (string sessionName in sessions.Keys)
-            {
-                var exercise = _context!.Exercises.FirstOrDefaultAsync(e => e.Name == sessions[sessionName].Exercise);
-                // if exercise name is not in the database,
-                // then the exercise and it's session shouldn't be added
-                // we try to keep the exercise table clean
-                if (exercise == null)
-                {
-                    fail += 1;
-                    throw new Exception("exercise was not found");
-                    //continue;
-                }
-                // always create new session from csv,
-                // don't try to match it with existing one
-                Session session = new Session
-                {
-                    Name = sessionName,
-                    Date = sessions[sessionName].Date,
-                    UserId = userId!
-                };
-                _context.Sessions.Add(session);
-                _context.SaveChangesAsync();
-
-                var exerciseSession = new ExerciseSession
-                {
-                    SessionId = session.Id,
-                    ExerciseId = exercise.Id,
-                    Weight = sessions[sessionName].Weight,
-                    NofRepetitions = sessions[sessionName].Repetitions,
-                    NofSets = sessions[sessionName].Sets,
-                    Note = sessions[sessionName].Note,
-                };
-
-                _context.ExerciseSessions.Add(exerciseSession);
-                _context.SaveChangesAsync();
-            }
-        }
     }
     public class CSVReader : ICSVReader, IDisposable
     {
+        // csv reader class for getting column names and values
         public TextReader _reader;
+        private int _columnCount;
         public CSVReader(TextReader reader) 
         {
             _reader = reader;
         }
-        public string[]? getKeys()
+        public string[]? GetKeys()
         {
-            return ReadLine();
+            string[] line = ReadLine();
+            int length = line.Length;
+            if (length > 1)
+            {
+                _columnCount = length;
+                return line;
+            }
+            else
+            {
+                return null;
+            }
         }
-        public string[]? ReadLine()
+        public string[]? GetLine(out bool sizeCheck)
+        {
+            sizeCheck = true;
+            string[] line = ReadLine();
+            if (line.Length < _columnCount)
+            {
+                sizeCheck = false;
+            }
+            return line;
+        }
+        public string[] ReadLine()
         {
             // returns line in array
             var sb = new StringBuilder();
@@ -294,10 +267,6 @@ namespace GymLogger
                 }
             }
             line.Add(sb.ToString());
-            if (line.Count < 4)
-            {
-                return null; 
-            }
             return line.ToArray();
         }
         public void Dispose() 

@@ -43,7 +43,7 @@
         </form>
     </div>
     <div class="grid-item">
-        <h2>Traning sessions overview</h2>
+        <h2>Training sessions overview</h2>
         @if (TempData["UploadError"] != null)
         {
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -57,29 +57,31 @@
         }
         else
         {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Date</th>
-                        <th>Total Weight lifted</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var session in Model.Sessions)
-                    {
+            <div class="scrollable-table">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
                         <tr>
-                            <td>@session.Name</td>
-                            <td>@session.Date.ToString("dd.MM.yyyy HH:mm")</td>
-                            <td>@session.TotalWeightLifted.ToString() kg</td>
-                            <td>
-                                <a asp-page="/Sessions/Details" asp-route-id="@session.Id" class="btn btn-primary btn-sm">View Details</a>
-                            </td>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Total Weight lifted</th>
+                            <th>Actions</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var session in Model.Sessions)
+                        {
+                            <tr>
+                                <td>@session.Name</td>
+                                <td>@session.Date.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>@session.TotalWeightLifted.ToString() kg</td>
+                                <td>
+                                    <a asp-page="/Sessions/Details" asp-route-id="@session.Id" class="btn btn-primary btn-sm">View Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
             <div class="bottom d-flex gap-2 align-items-center">
                 <a asp-page="./Index"
                    asp-page-handler="DownloadCsv"
@@ -116,7 +118,7 @@
     </div>
     <div class="grid-item">
         <h2>Progress</h2>
-            <img src="/chart.png" />
+        <img src="/chart.png" height="300" />
     </div>
 </div>
 
@@ -154,10 +156,27 @@
     }
 
     .gap-3 {
-        gap: 15px; /* mezera mezi sloupci */
+        gap: 15px;
     }
 
     .flex-item {
-        flex: 1; /* každý input zabere stejnou šířku */
+        flex: 1;
+    }
+
+    /* table needs to have fixed size so it doesn't become too big */
+    .scrollable-table {
+        max-height: 300px;
+        margin-bottom: 1rem; 
+        /* looks better with this, 
+        items don't show behind upload */
+        overflow-y: auto;
+    }
+
+    .scrollable-table thead th {
+        position: sticky;
+        top: 0;
+        background: #212529;
+        color: #fff;
+        z-index: 2;
     }
 </style>
