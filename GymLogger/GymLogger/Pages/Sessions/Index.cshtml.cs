@@ -27,24 +27,61 @@ namespace GymLogger.Pages.Sessions
         }
 
         public IList<Session> Sessions { get; set; } = new List<Session>();
+        public IList<ExerciseWithDaysViewModel> ExercisesWithDays { get; set; } = new List<ExerciseWithDaysViewModel>();
+
         public Session? LastSession { get; set; }
 
-
+        public class ExerciseWithDaysViewModel
+        {
+            public string ExerciseName { get; set; } = "";
+            public int DaysSince { get; set; }
+        }
         public async Task OnGetAsync()
         {
-            // hodilo by se to napsat do samostatny knihovny
-            Plot myPlot = new();
-
-            double[] dataX = { 1, 2, 3, 4, 5 };
-            double[] dataY = { 1, 4, 9, 16, 25 };
-
-            myPlot.Add.Scatter(dataX, dataY);
-
-            myPlot.SavePng("wwwroot/chart.png", 400, 300);
-
 
             Exercises = new SelectList(await _context.Exercises.ToListAsync(), "Id", "Name");
             var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                RedirectToPage("/Account/Login");
+                return;
+            }
+
+            Sessions = await _context.Sessions
+                .Where(s => s.UserId == user.Id)
+                .Include(s => s.ExerciseSessions)!
+                .ThenInclude(es => es.Exercise)
+                .OrderByDescending(s => s.Date)
+                .ToListAsync();
+
+            LastSession = Sessions.FirstOrDefault();
+
+            if (LastSession?.ExerciseSessions != null)
+            {
+                foreach (var es in LastSession.ExerciseSessions)
+                {
+                    var lastDate = Sessions
+                        .Where(s => s.Date < LastSession.Date)
+                        .SelectMany(s => s.ExerciseSessions!)
+                        .Where(e => e.ExerciseId == es.ExerciseId)
+                        .OrderByDescending(e => e.Session!.Date)
+                        .Select(e => e.Session!.Date)
+                        .FirstOrDefault();
+
+                    int daysSince = lastDate != default
+                        ? (LastSession.Date - lastDate).Days
+                        : -1;
+
+                    ExercisesWithDays.Add(new ExerciseWithDaysViewModel
+                    {
+                        ExerciseName = es.Exercise?.Name ?? "",
+                        DaysSince = daysSince
+                    });
+                }
+            }
+
+            Exercises = new SelectList(await _context.Exercises.ToListAsync(), "Id", "Name");
 
             if (user == null)
             {
@@ -115,6 +152,66 @@ namespace GymLogger.Pages.Sessions
             var bytes = System.Text.Encoding.UTF8.GetBytes(csvContent);
             return File(bytes, "text/csv", $"sessions_{DateTime.Now.ToShortDateString()}.csv");
         }
+        public async Task<IActionResult> OnGetPrimaryAsync()
+        {
+            var userId = _userManager.GetUserId(User);
+            var sessions = await _context.Sessions
+                .Where(s => s.UserId == userId)
+                .Include(s => s.ExerciseSessions)!
+                    .ThenInclude(es => es.Exercise)
+                .ToListAsync();
+
+            GraphPlotter plotter = new GraphPlotter();
+            var plot = plotter.PreparePlot1(sessions);
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "chart.png");
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+            plot.SavePng("wwwroot/chart.png", 800, 400);
+
+            return RedirectToPage();
+        }
+        public async Task<IActionResult> OnGetSecondaryAsync()
+        {
+            var userId = _userManager.GetUserId(User);
+            var sessions = await _context.Sessions
+                .Where(s => s.UserId == userId)
+                .Include(s => s.ExerciseSessions)!
+                    .ThenInclude(es => es.Exercise)
+                .ToListAsync();
+
+            GraphPlotter plotter = new GraphPlotter();
+            var plot = plotter.PreparePlot2(sessions);
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "chart.png");
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+            plot.SavePng("wwwroot/chart.png", 800, 400);
+
+            return RedirectToPage();
+        }
+        public async Task<IActionResult> OnGetTerciaryAsync()
+        {
+            var userId = _userManager.GetUserId(User);
+            var sessions = await _context.Sessions
+                .Where(s => s.UserId == userId)
+                .Include(s => s.ExerciseSessions)!
+                    .ThenInclude(es => es.Exercise)
+                .ToListAsync();
+
+            GraphPlotter plotter = new GraphPlotter();
+            var plot = plotter.PreparePlot3(sessions);
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "chart.png");
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+            plot.SavePng("wwwroot/chart.png", 800, 400);
+
+            return RedirectToPage();
+        }
         public async Task<IActionResult> OnPostUploadCsvAsync(IFormFile csvFile)
         {
             if (csvFile == null || csvFile.Length == 0)
@@ -147,9 +244,9 @@ namespace GymLogger.Pages.Sessions
                     // we try to keep the exercise table clean
                     if (exercise == null)
                     {
-                        //fail += 1;
-                        throw new Exception("exercise was not found");
-                        //continue;
+                        fail += 1;
+                        //throw new Exception("exercise was not found");
+                        continue;
                     }
 
                     var exerciseSession = new ExerciseSession
@@ -166,7 +263,14 @@ namespace GymLogger.Pages.Sessions
                     await _context.SaveChangesAsync();
                 }
             }
-            TempData["UploadError"] = message;
+            if (success == 0)
+            {
+                TempData["UploadError"] = "Upload failed";
+            }
+            else
+            {
+                TempData["UploadSuccess"] = string.Format("Upload successful with success rate {0}/{1}", success, fail);
+            }
             await _context.SaveChangesAsync();
 
             return RedirectToPage();

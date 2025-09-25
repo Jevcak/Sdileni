@@ -75,8 +75,8 @@ namespace GymLogger
             csvContent += string.Join(Environment.NewLine, csvLines);
             return csvContent;
         }
-        // PrepareForUpload is different, it would be better
-        // if it uploaded straight into the database
+        // Same as prepare for upload
+        // upload it to the database later in the cshtml.cs file
         public string PrepareForUpload(CSVReader csvReader, out int success, out int fail)
         {
             // store succes values and missing values,
@@ -91,40 +91,51 @@ namespace GymLogger
             try
             {
                 string[] keys = csvReader.GetKeys()!;
+                if (keys is null)
+                {
+                    string emptyKeys = "Upload failed: Empty File";
+                    return emptyKeys;
+                }
                 // add function that matches the names -- GetOrder and MapName
                 keyOrder = GetOrder(keys);
-                bool size = true;
-                string[]? vals = csvReader.GetLine(out size);
+                string[]? vals = csvReader.GetLine();
                 while (vals is not null)
                 {
-                    // check validity of all input values
-                    bool validDate = DateTime.TryParse(vals[keyOrder[columnNames[7]]], out DateTime date);
-                    bool validWeight = double.TryParse(vals[keyOrder[columnNames[4]]], out double weight);
-                    bool validSets = int.TryParse(vals[keyOrder[columnNames[6]]], out int sets);
-                    bool validReps = int.TryParse(vals[keyOrder[columnNames[5]]], out int reps);
-                    string exercise = vals[keyOrder[columnNames[3]]];
-                    string name = vals[keyOrder[columnNames[1]]];
-                    string? note = null;
-                    // Note is not required
-                    if (keyOrder.Keys.Contains(columnNames[8]))
-                    {
-                        note = vals[keyOrder[columnNames[8]]];
-                    }
-                    bool[] bools = { validDate, validWeight, validSets, validReps, size };
-                    if (bools.Contains(false))
+                    if (vals.Length == 0)
                     {
                         fail += 1;
                     }
                     else
                     {
-                        if (!sessions.ContainsKey(name))
+                        // check validity of all input values
+                        bool validDate = DateTime.TryParse(vals[keyOrder[columnNames[7]]], out DateTime date);
+                        bool validWeight = double.TryParse(vals[keyOrder[columnNames[4]]], out double weight);
+                        bool validSets = int.TryParse(vals[keyOrder[columnNames[6]]], out int sets);
+                        bool validReps = int.TryParse(vals[keyOrder[columnNames[5]]], out int reps);
+                        string exercise = vals[keyOrder[columnNames[3]]];
+                        string name = vals[keyOrder[columnNames[1]]];
+                        string? note = null;
+                        // Note is not required
+                        if (keyOrder.Keys.Contains(columnNames[8]))
                         {
-                            sessions.Add(name,new List<SessionRow>());
+                            note = vals[keyOrder[columnNames[8]]];
                         }
-                        sessions[name].Add(new SessionRow(exercise, weight, reps, sets, date, note));
-                        success += 1;
+                        bool[] bools = { validDate, validWeight, validSets, validReps };
+                        if (bools.Contains(false))
+                        {
+                            fail += 1;
+                        }
+                        else
+                        {
+                            if (!sessions.ContainsKey(name))
+                            {
+                                sessions.Add(name, new List<SessionRow>());
+                            }
+                            sessions[name].Add(new SessionRow(exercise, weight, reps, sets, date, note));
+                            success += 1;
+                        }
                     }
-                    vals = csvReader.GetLine(out size);
+                    vals = csvReader.GetLine();
                 }
             }
             catch (Exception ex)
@@ -231,15 +242,21 @@ namespace GymLogger
                 return null;
             }
         }
-        public string[]? GetLine(out bool sizeCheck)
+        public string[]? GetLine()
         {
-            sizeCheck = true;
             string[] line = ReadLine();
-            if (line.Length < _columnCount)
-            {
-                sizeCheck = false;
+            if (line.Length == _columnCount) 
+            { 
+                return line;
             }
-            return line;
+            else if (line.Length > 1)
+            {
+                return [];
+            }
+            else
+            {
+                return null;
+            }
         }
         public string[] ReadLine()
         {

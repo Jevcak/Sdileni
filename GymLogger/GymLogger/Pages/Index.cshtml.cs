@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using ScottPlot;
 
 namespace GymLogger.Pages
 {
@@ -16,6 +17,9 @@ namespace GymLogger.Pages
         {
             if (_signInManager.IsSignedIn(User))
             {
+                GraphPlotter plotter = new GraphPlotter();
+                Plot plot = plotter.PreparePlot0();
+                plot.SavePng("wwwroot/chart.png", 800, 400);
                 return RedirectToPage("/Sessions/Index");
             }
 

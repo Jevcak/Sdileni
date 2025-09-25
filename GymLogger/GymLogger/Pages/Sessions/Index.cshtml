@@ -51,6 +51,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         }
+        @if (TempData["UploadSuccess"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["UploadSuccess"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
         @if (!Model.Sessions.Any())
         {
             <p>Add your first training session now! 🏋️‍</p>
@@ -82,43 +89,78 @@
                     </tbody>
                 </table>
             </div>
-            <div class="bottom d-flex gap-2 align-items-center">
-                <a asp-page="./Index"
-                   asp-page-handler="DownloadCsv"
-                   class="btn btn-primary">
-                    Download CSV
-                </a>
-                <form asp-page="./Index" asp-page-handler="UploadCsv" method="post" enctype="multipart/form-data" class="d-flex gap-1 align-items-stretch m-0 p-0">
-                    <input type="file" name="csvFile" class="form-control" style="height: calc(2.25rem + 2px); width: auto;" />
-                    <button type="submit" class="btn btn-primary" style="height: calc(2.25rem + 2px);">Upload CSV</button>
-                </form>
-            </div>
         }
+        <div class="bottom d-flex gap-2 align-items-center">
+            <a asp-page="./Index"
+               asp-page-handler="DownloadCsv"
+               class="btn btn-primary">
+                Download CSV
+            </a>
+            <form asp-page="./Index" asp-page-handler="UploadCsv" method="post" enctype="multipart/form-data" class="d-flex gap-1 align-items-stretch m-0 p-0">
+                <input type="file" name="csvFile" class="form-control" style="height: calc(2.25rem + 2px); width: auto;" />
+                <button type="submit" class="btn btn-primary" style="height: calc(2.25rem + 2px);">Upload CSV</button>
+            </form>
+        </div>
     </div>
-    <div class="grid-item">
-        <h2>Last session details</h2>
-        @if (Model.LastSession != null)
-        {
-            <div class="card mt-3">
-                <div class="card-body">
-                    <p><strong>Name:</strong> @Model.LastSession.Name</p>
-                    <p><strong>Date:</strong> @Model.LastSession.Date.ToShortDateString()</p>
-                    <p><strong>Exercises count:</strong> @Model.LastSession.ExerciseSessions!.Count()</p>
-                    <p>
-                        <strong>Total volume:</strong>
-                        @Model.LastSession.TotalWeightLifted.ToString() kg
-                    </p>
+    <div class="grid-row">
+        <div class="grid-item">
+            <h2>Last session details</h2>
+            @if (Model.LastSession != null)
+            {
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <p><strong>Name:</strong> @Model.LastSession.Name</p>
+                        <p><strong>Date:</strong> @Model.LastSession.Date.ToShortDateString()</p>
+                        <p><strong>Exercises count:</strong> @Model.LastSession.ExerciseSessions!.Count()</p>
+                        <p>
+                            <strong>Total volume:</strong>
+                            @Model.LastSession.TotalWeightLifted.ToString() kg
+                        </p>
+                    </div>
                 </div>
-            </div>
-        }
-        else
-        {
-            <p>Add your first training session now! 🏋️‍</p>
-        }
+            }
+            else
+            {
+                <p>Add your first training session now! 🏋️‍</p>
+            }
+            @if (Model.ExercisesWithDays.Any())
+            {
+                <ul>
+                    @foreach (var ex in Model.ExercisesWithDays)
+                    {
+                        <li>
+                            <strong>@ex.ExerciseName:</strong>
+                            @(ex.DaysSince >= 0
+                                            ? $"{ex.DaysSince} days since last performed"
+                                            : "First time performed")
+                </li>
+                            }
+                </ul>
+            }
+        </div>
+        <div class="grid-item">
+            <h2>Personal Records</h2>
+        </div>
     </div>
     <div class="grid-item">
-        <h2>Progress</h2>
         <img src="/chart.png" height="300" />
+        <div class="d-flex gap-2 mt-2">
+            <a asp-page="./Index"
+               asp-page-handler="Primary"
+               class="btn btn-primary">
+                Overall Weight Lifted
+            </a>
+            <a asp-page="./Index"
+               asp-page-handler="Secondary"
+               class="btn btn-primary">
+                Bench Press, Squat, Deadlift
+            </a>
+            <a asp-page="./Index"
+               asp-page-handler="Terciary"
+               class="btn btn-primary">
+                Monthly Sessions
+            </a>
+        </div>
     </div>
 </div>
 
@@ -146,6 +188,12 @@
         border-radius: 8px;
         box-sizing: border-box;
         overflow: auto;
+    }
+
+    .grid-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
     }
 
     .grid-item .bottom {
@@ -178,5 +226,10 @@
         background: #212529;
         color: #fff;
         z-index: 2;
+    }
+
+    .grid-item.half-width {
+        width: 50%;
+        margin: 0 auto;
     }
 </style>

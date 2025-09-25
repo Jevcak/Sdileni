@@ -1,8 +1,4 @@
 using GymLogger;
-using GymLogger.Migrations;
-using Microsoft.AspNetCore.Http;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace GymLoggerTest
 {
@@ -73,6 +69,18 @@ namespace GymLoggerTest
                 """;
             CSVHandler handler = new CSVHandler();
             string expected = "Upload successful with success rate 2/0";
+            //Act
+            string actual = handler.PrepareForUpload(new CSVReader(new StringReader(input)), out int success, out int fail);
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+        [Fact]
+        public void UploadEmpty()
+        {
+            //Arrange
+            string input = "";
+            CSVHandler handler = new CSVHandler();
+            string expected = "Upload failed: Empty File";
             //Act
             string actual = handler.PrepareForUpload(new CSVReader(new StringReader(input)), out int success, out int fail);
             //Assert
@@ -164,19 +172,27 @@ namespace GymLoggerTest
                 1,LegDay,1,Bench Press,10,2,2,Tohle neni cas,
                 3,Nohy,2,Squat,100,6,3,14.09.2025 13:27:07,
                 3,Nohy,7,Romanian Deadlift,60,NAN,3,14.09.2025 13:27:45,
-                3,Nohy,10,Calf Raises,Nan,12,6,14.09.2025 13:28:01,
+                3,Nohy,10,Calf Raises,thisisnotanumber,12,6,14.09.2025 13:28:01,
                 """;
             CSVHandler handler = new CSVHandler();
             //Act
             string _ = handler.PrepareForUpload(new CSVReader(new StringReader(input)), out int success, out int fail);
             //Assert
             // Check if incorrect values got through the sieve
+            // radky 1, 2, 5, 7, 8 by mely byt spatne z duvodu:
+            // 1 : missing separator
+            // 2 : missing ExerciseName, if there is correct columnCount,
+            //      it will take the string on it's place,
+            //      disregarding if it is a possible string,
+            //      then it should stop being processed in Index.cshtml.cs
+            // 5 : incorrect DateTime
+            // 7 : string imparsable into integer on repetitions place
+            // 8 : string imparsable into double on repetitions place
+            // WARNING: NaN is parsable into double as double.NaN value
             Assert.Equal(5, fail);
+            Assert.Equal(3, success);
             Assert.Equal(2,handler.sessions["LegDay"].Count);
             Assert.Single(handler.sessions["Nohy"]);
-            //Assert.Equal("Bulgarian Split Squat", handler.sessions["LegDay"][2].Exercise);
-            //Assert.Equal(125, handler.sessions["LegDay"][2].Weight);
-            //Assert.Equal(10, handler.sessions["LegDay"][2].Repetitions);
         }
     }
     public class CSVReaderTest
@@ -194,9 +210,9 @@ namespace GymLoggerTest
             //Act
             var result = reader.GetKeys();
             string actual1 = string.Join(",", result!);
-            result = reader.GetLine(out _);
+            result = reader.GetLine();
             string actual2 = string.Join(",", result!);
-            result = reader.GetLine(out _);
+            result = reader.GetLine();
             string actual3 = string.Join(",", result!);
             //Assert
             Assert.Equal("SessionId,SessionName,ExerciseId,ExerciseName,Weight,Repetitions,Sets,DateTime,Note", actual1);
@@ -215,9 +231,9 @@ namespace GymLoggerTest
             //Act
             var result = reader.GetKeys();
             string actual1 = string.Join(",", result!);
-            result = reader.GetLine(out _);
+            result = reader.GetLine();
             string actual2 = string.Join(",", result!);
-            result = reader.GetLine(out _);
+            result = reader.GetLine();
             //Assert
             Assert.Equal("SessionId,SessionName,ExerciseId,ExerciseName,Weight,Repetitions,Sets,DateTime,Note", actual1);
             Assert.Equal("2,Prsa,1,Bench Press,100,3,3,,note", actual2);
@@ -249,15 +265,15 @@ namespace GymLoggerTest
             //Act
             var result = reader.GetKeys();
             string actual1 = string.Join(",", result!);
-            result = reader.GetLine(out _);
-            var result1 = reader.GetLine(out _);
+            result = reader.GetLine();
+            var result1 = reader.GetLine();
             string actual2 = string.Join(",", result1!);
-            result1 = reader.GetLine(out _);
-            var result2 = reader.GetLine(out _);
+            result1 = reader.GetLine();
+            var result2 = reader.GetLine();
             string actual3 = string.Join(",", result2!);
-            result2 = reader.GetLine(out _);
-            var result3 = reader.GetLine(out _);
-            var result4 = reader.GetLine(out _);
+            result2 = reader.GetLine();
+            var result3 = reader.GetLine();
+            var result4 = reader.GetLine();
             //Assert actual values
             Assert.Equal("SessionId,SessionName,ExerciseId,ExerciseName,Weight,Repetitions,Sets,DateTime,Note", actual1);
             Assert.Equal("2,Prsa,1,Bench Press,100,3,3,,note", actual2);
@@ -268,34 +284,6 @@ namespace GymLoggerTest
             Assert.Null(result2);
             Assert.Null(result3);
             Assert.Null(result4);
-        }
-        [Fact]
-        public void ReadIncorrectInput()
-        {
-            //Arrange
-            string input = """
-                SessionId,SessionName,ExerciseId,ExerciseName,Weight,Repetitions,Sets,DateTime,Note
-                1,LegDay,2,Squat,105,10,3,02.09.2025 9:00:27 docela v pohode drepiky
-                1,LegDay,13,50,12,3,02.09.2025 9:00:50,najs nebo najs
-                1,LegDay,6,Bulgarian Split Squat,125,10,3,02.09.2025 9:01:36,
-                1,LegDay,13,Leg Raises,0,0,0,02.09.2025 9:26:59,
-                1,LegDay,1,Bench Press,10,2,2,Tohle neni cas,
-                3,Nohy,2,Squat,100,6,3,14.09.2025 13:27:07,
-                3,Nohy,7,Romanian Deadlift,60,NAN,3,14.09.2025 13:27:45,
-                3,Nohy,10,Calf Raises,Nan,12,6,14.09.2025 13:28:01,
-                """;
-            CSVReader reader = new CSVReader(new StringReader(input));
-            //Act
-            var result = reader.GetKeys();
-            string actual1 = string.Join(",", result!);
-            result = reader.GetLine(out _); // null, missing column separator
-            var result1 = reader.GetLine(out _); // null, missing exercise name column
-            var result2 = reader.GetLine(out _); // should be okay
-            // Skip actual values, they are already tested
-            // Assert null values or not null values
-            Assert.Null(result);
-            Assert.Null(result1);
-            Assert.NotNull(result2);
         }
     }
 }
