@@ -1,6 +1,7 @@
 using GymLogger.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using NuGet.ContentModel;
 
 namespace GymLogger
 {
@@ -8,6 +9,15 @@ namespace GymLogger
     {
         public static void Main(string[] args)
         {
+            GraphPlotter plotter = new GraphPlotter();
+            double[] xs = { 12, 12, 34, 34, 42, 56.42, 56.42, 57 };
+            double[] ys = { 10, 20, 53, 25, 42, 56, 65, 75 };
+            double[] expectedx = { 12, 34, 42, 56.42, 57 };
+            double[] expectedy = { 30, 78, 42, 121, 57 };
+            //Act
+            int _ = plotter.CleanseArray(xs, ys, out double[] xset, out double[] yset);
+
+
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "chart.png");
             // need to delete this image,
             // otherwise the Graph viewing doesn't work as it should

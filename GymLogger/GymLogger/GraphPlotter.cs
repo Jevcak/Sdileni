@@ -1,4 +1,5 @@
-﻿using ScottPlot;
+﻿using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
+using ScottPlot;
 using ScottPlot.TickGenerators;
 
 namespace GymLogger
@@ -21,7 +22,7 @@ namespace GymLogger
             text.LabelAlignment = Alignment.MiddleCenter;
             return plot;
         }
-        // graf ktery ukazuje celkovou zvednutou vahu podle data session
+        // graph that shows overall weight lifted on sessions in time
         public Plot PreparePlot1(List<Session> sessions)
         {
             Plot plot = new Plot();
@@ -33,8 +34,9 @@ namespace GymLogger
 
             double[] xs = sorted.Select(v => v.Date.ToOADate()).ToArray(); 
             double[] ys = sorted.Select(v => v.TotalWeightLifted).ToArray();
-
-            var sp1 = plot.Add.Scatter(xs, ys);
+            // xs is sorted, can use CleanseArray
+            CleanseArray(xs,ys, out double[] xset, out double[] ylist);
+            var sp1 = plot.Add.Scatter(xset, ylist);
             sp1.LegendText = "Total Weight Lifted";
             sp1.LineWidth = 3;
             sp1.MarkerSize = 10;
@@ -83,8 +85,9 @@ namespace GymLogger
                 var sorted = kvp.Value.OrderBy(v => v.Item1).ToList();
                 double[] xs = sorted.Select(v => v.Item1.ToOADate()).ToArray();
                 double[] ys = sorted.Select(v => v.Item2).ToArray();
-
-                var sp1 = plot.Add.Scatter(xs, ys);
+                // xs is sorted, can Cleanse with my function
+                int _ = CleanseArray(xs, ys, out double[] xset, out double[] ylist);
+                var sp1 = plot.Add.Scatter(xset, ylist);
                 sp1.LegendText = kvp.Key;
                 sp1.LineWidth = 3;
                 sp1.MarkerSize = 10;
@@ -144,6 +147,46 @@ namespace GymLogger
         public Plot PreparePlot4()
         {
             return new Plot();
+        }
+        public int CleanseArray(in double[] xs, in double[] ys, out double[] xset, out double[] yset)
+        {
+            if (xs.Length == 0)
+            {
+                xset = Array.Empty<double>();
+                yset = Array.Empty<double>();
+                return 0;
+            }
+            double temp = xs[0];
+            int l = 1;
+            // only for sorted xs
+            for (int i = 1; i < xs.Length; i++) 
+            {
+                if(temp !=  xs[i])
+                {
+                    temp = xs[i];
+                    l += 1;
+                }
+            }
+            xset = new double[l];
+            yset = new double[l];
+            for (int i = 0; i < l; i++)
+            {
+                yset[i] = 0;
+            }
+            temp = xs[0];
+            xset[0] = temp;
+            int j = 0;
+            for (int i = 0; i < xs.Length; i++)
+            {
+                if (temp != xs[i])
+                {
+                    temp = xs[i];
+                    j += 1;
+                    xset[j] = temp;
+                }
+                yset[j] += ys[i];
+            }
+            return l;
         }
     }
 }
