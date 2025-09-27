@@ -1,10 +1,13 @@
 using GymLogger.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ScottPlot;
+using ScottPlot.Colormaps;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 namespace GymLogger.Pages.Sessions
@@ -26,15 +29,29 @@ namespace GymLogger.Pages.Sessions
             _userManager = userManager;
         }
 
-        public IList<Session> Sessions { get; set; } = new List<Session>();
-        public IList<ExerciseWithDaysViewModel> ExercisesWithDays { get; set; } = new List<ExerciseWithDaysViewModel>();
-
+        public List<Session> Sessions { get; set; } = new List<Session>();
+        public List<ExerciseWithDaysViewModel> ExercisesWithDays { get; set; } = new List<ExerciseWithDaysViewModel>();
+        public List<PersonalRecordsViewModel> PersonalRecords { get; set; } = new List<PersonalRecordsViewModel>();
         public Session? LastSession { get; set; }
+
+        public class PersonalRecordsViewModel
+        {
+            public string ExerciseName { get; set; } = "";
+            public double RecordWeight { get; set; }
+            public int RecordReps { get; set; }
+        }
 
         public class ExerciseWithDaysViewModel
         {
             public string ExerciseName { get; set; } = "";
             public int DaysSince { get; set; }
+        }
+
+        public class MuscleGroupDaysViewModel
+        {
+            public string MuscleGroup { get; set; } = "";
+            public DateTime SessionDate { get; set; }
+            public int TotalReps { get; set; }
         }
         public async Task OnGetAsync()
         {
@@ -79,6 +96,17 @@ namespace GymLogger.Pages.Sessions
                         DaysSince = daysSince
                     });
                 }
+                PersonalRecords = Sessions
+                .SelectMany(s => s.ExerciseSessions ?? new List<ExerciseSession>())
+                .Where(es => es.Exercise != null)
+                .GroupBy(es => es.Exercise!.Name)
+                .Select(g => new PersonalRecordsViewModel
+                {
+                    ExerciseName = g.Key,
+                    RecordWeight = g.Max(es => es.Weight),
+                    RecordReps = g.OrderByDescending(es => es.Weight).First().NofRepetitions
+                })
+                .ToList();
             }
 
             Exercises = new SelectList(await _context.Exercises.ToListAsync(), "Id", "Name");
@@ -203,6 +231,88 @@ namespace GymLogger.Pages.Sessions
 
             GraphPlotter plotter = new GraphPlotter();
             var plot = plotter.PreparePlot3(sessions);
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "chart.png");
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+            plot.SavePng("wwwroot/chart.png", 800, 400);
+
+            return RedirectToPage();
+        }
+        public async Task<IActionResult> OnGetQuartalAsync()
+        {
+            var muscleGroups = new Dictionary<string, string>
+            {
+                { "Hamstrings", "Legs" },
+                { "Quadriceps", "Legs" },
+                { "Glutes", "Legs" },
+                { "Calves", "Legs" },
+                { "Chest", "Push" },
+                { "Back", "Pull" },
+                { "Shoulders", "Push" },
+                { "Biceps", "Pull" },
+                { "Triceps", "Push" },
+                { "Forearms", "Pull" },
+                { "Core", "Legs" },
+                { "Trapezius", "Pull" },
+                { "Adductors", "Legs" }
+            };
+            var userId = _userManager.GetUserId(User);
+            var sessions = await _context.Sessions
+                .Where(s => s.UserId == userId)
+                .Include(s => s.ExerciseSessions)!
+                    .ThenInclude(es => es.Exercise)
+                .ToListAsync();
+            var joinedTable = (
+                from s in _context.Sessions
+                join es in _context.ExerciseSessions on s.Id equals es.SessionId
+                join e in _context.Exercises on es.ExerciseId equals e.Id
+                join em in _context.ExerciseMuscles on es.ExerciseId equals em.ExerciseId
+                join m in _context.Muscles on em.MuscleId equals m.Id
+                where m.Importance > 4
+                select new
+                {
+                    SessionName = s.Name,
+                    SessionId = s.Id,
+                    ExerciseName = e.Name,
+                    SessionDate = s.Date,
+                    MuscleName = m.Name,
+                    MuscleImportance = m.Importance,
+                    OverallReps = es.NofRepetitions * es.NofSets
+                }
+            )
+            .AsEnumerable() // needs to be here, because using
+                            // the dictionary causes an error
+            .Select(x => new
+            {
+                x.SessionName,
+                x.SessionId,
+                x.ExerciseName,
+                x.SessionDate,
+                x.MuscleName,
+                MuscleGroup = muscleGroups[x.MuscleName],
+                x.MuscleImportance,
+                x.OverallReps
+            });
+            var grouped = joinedTable
+                .GroupBy(x => new { x.SessionId, x.MuscleGroup })
+                .Select(g => new MuscleGroupDaysViewModel
+                {
+                    MuscleGroup = g.Key.MuscleGroup,
+                    SessionDate = g.First().SessionDate,
+                    TotalReps = g.Sum(x => x.OverallReps)
+                })
+                .OrderBy(r => r.MuscleGroup)
+                .ThenBy(r => r.SessionDate);
+            var groupedByMuscleGroup = grouped
+                .GroupBy(g => g.MuscleGroup)
+                .ToDictionary(
+                    g => g.Key,
+                    g => g.ToList()
+                );
+            GraphPlotter plotter = new GraphPlotter();
+            var plot = plotter.PreparePlot4(groupedByMuscleGroup);
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "chart.png");
             if (System.IO.File.Exists(filePath))
             {

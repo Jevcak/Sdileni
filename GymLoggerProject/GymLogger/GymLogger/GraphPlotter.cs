@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
+﻿using GymLogger.Pages.Sessions;
 using ScottPlot;
 using ScottPlot.TickGenerators;
+using static GymLogger.Pages.Sessions.IndexModel;
 
 namespace GymLogger
 {
@@ -43,6 +44,17 @@ namespace GymLogger
             sp1.Smooth = true;
             sp1.Color = Colors.Green;
 
+            // add linear regression to show progress 
+            ScottPlot.Statistics.LinearRegression reg = new(xset, ylist);
+
+            // plot the regression line
+            Coordinates pt1 = new(xs.First(), reg.GetValue(xs.First()));
+            Coordinates pt2 = new(xs.Last(), reg.GetValue(xs.Last()));
+            var line = plot.Add.Line(pt1, pt2);
+            line.MarkerSize = 0;
+            line.LineWidth = 3;
+            line.LinePattern = LinePattern.Dashed;
+
             plot.Axes.DateTimeTicksBottom();
             plot.Legend.IsVisible = true;
             plot.Title("Progress of Total Weight Lifted");
@@ -52,6 +64,12 @@ namespace GymLogger
 
             return plot;
         }
+        public Dictionary<string, Color> ExerciseColor { get; } = new()
+        {
+            { "Bench Press", Colors.Red },
+            { "Squat", Colors.Blue },
+            { "Deadlift", Colors.Green },
+        };
         // graph to showcase three exercises over time
         // squat, bench press, deadlift
         public Plot PreparePlot2(List<Session> sessions)
@@ -89,9 +107,22 @@ namespace GymLogger
                 int _ = CleanseArray(xs, ys, out double[] xset, out double[] ylist);
                 var sp1 = plot.Add.Scatter(xset, ylist);
                 sp1.LegendText = kvp.Key;
+                sp1.Color = ExerciseColor[kvp.Key];
                 sp1.LineWidth = 3;
                 sp1.MarkerSize = 10;
                 sp1.Smooth = true;
+
+                // add linear regression to show progress 
+                ScottPlot.Statistics.LinearRegression reg = new(xset, ylist);
+
+                // plot the regression line
+                Coordinates pt1 = new(xs.First(), reg.GetValue(xs.First()));
+                Coordinates pt2 = new(xs.Last(), reg.GetValue(xs.Last()));
+                var line = plot.Add.Line(pt1, pt2);
+                line.MarkerSize = 0;
+                line.LineWidth = 3;
+                line.LinePattern = LinePattern.Dashed;
+                line.Color = ExerciseColor[kvp.Key];
             }
 
             plot.Axes.DateTimeTicksBottom();
@@ -107,7 +138,7 @@ namespace GymLogger
         // graph showing session count over time
         public Plot PreparePlot3(List<Session> sessions)
         {
-            var myPlot = new Plot();
+            var plot = new Plot();
 
             var grouped = sessions
                 .GroupBy(s => new { s.Date.Year, s.Date.Month })
@@ -121,33 +152,75 @@ namespace GymLogger
                 .ToList();
 
             if (grouped.Count == 0)
-                return myPlot;
+                return plot;
 
             for (int i = 0; i < grouped.Count; i++)
             {
-                myPlot.Add.Bar(position: i + 1, value: grouped[i].Count);
+                plot.Add.Bar(position: i + 1, value: grouped[i].Count);
             }
 
             Tick[] ticks = grouped
                 .Select((g, i) => new Tick(i + 1, $"{g.Month:D2}.{g.Year}"))
                 .ToArray();
 
-            myPlot.Axes.Bottom.TickGenerator = new NumericManual(ticks);
-            myPlot.Axes.Bottom.MajorTickStyle.Length = 0;
+            plot.Axes.Bottom.TickGenerator = new NumericManual(ticks);
+            plot.Axes.Bottom.MajorTickStyle.Length = 0;
 
-            myPlot.YLabel("Number of Sessions");
-            myPlot.XLabel("Month");
-            myPlot.Title("Sessions per Month");
+            plot.YLabel("Number of Sessions");
+            plot.XLabel("Month");
+            plot.Title("Sessions per Month");
 
-            myPlot.HideGrid();
-            myPlot.Axes.Margins(bottom: 0, top: 0.2);
+            plot.HideGrid();
+            plot.Axes.Margins(bottom: 0, top: 0.2);
+            plot.ShowLegend();
 
-            return myPlot;
+            return plot;
         }
-        public Plot PreparePlot4()
+        // Graph showing muscle groups trained over time
+        public Dictionary<string, Color> MuscleGroupColor { get; } = new()
         {
-            return new Plot();
+            { "Legs", Colors.Red },
+            { "Push", Colors.Blue },
+            { "Pull", Colors.Green },
+        };
+        public Plot PreparePlot4(Dictionary<string, List<MuscleGroupDaysViewModel>> muscleGroupDaysGrouped)
+        {
+            Plot plot = new Plot();
+            foreach (var kvp in muscleGroupDaysGrouped)
+            {
+                List<MuscleGroupDaysViewModel> list = kvp.Value;
+                double[] xs = list.Select(x => x.SessionDate.ToOADate()).ToArray();
+                double[] ys = list.Select(x => (double)x.TotalReps).ToArray();
+                int _ = CleanseArray(xs, ys, out double[] xset, out double[] ylist);
+                var sp1 = plot.Add.Scatter(xset, ylist);
+                sp1.LegendText = kvp.Key;
+                sp1.Color = MuscleGroupColor[kvp.Key];
+                sp1.LineWidth = 3;
+                sp1.MarkerSize = 10;
+                sp1.Smooth = true;
+
+                // add linear regression to show progress 
+                ScottPlot.Statistics.LinearRegression reg = new(xset, ylist);
+
+                // plot the regression line
+                Coordinates pt1 = new(xs.First(), reg.GetValue(xs.First()));
+                Coordinates pt2 = new(xs.Last(), reg.GetValue(xs.Last()));
+                var line = plot.Add.Line(pt1, pt2);
+                line.MarkerSize = 0;
+                line.LineWidth = 3;
+                line.LinePattern = LinePattern.Dashed;
+                line.Color = MuscleGroupColor[kvp.Key];
+
+                plot.Axes.DateTimeTicksBottom();
+                plot.Legend.IsVisible = true;
+                plot.Title("Progress of Muscle Groups");
+                plot.YLabel("Total Repetitions");
+                plot.XLabel("Date");
+                plot.ShowLegend();
+            }
+            return plot;
         }
+        // for adding y values for duplicate x values
         public int CleanseArray(in double[] xs, in double[] ys, out double[] xset, out double[] yset)
         {
             if (xs.Length == 0)

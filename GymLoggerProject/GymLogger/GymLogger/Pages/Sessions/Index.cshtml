@@ -140,9 +140,16 @@
         </div>
         <div class="grid-item">
             <h2>Personal Records</h2>
+            <ul>
+                @foreach (var pr in Model.PersonalRecords)
+                {
+                    <li>@pr.ExerciseName: @pr.RecordWeight kg × @pr.RecordReps reps</li>
+                }
+            </ul>
         </div>
     </div>
     <div class="grid-item">
+        <h2>Progress</h2>
         <img src="/chart.png" height="300" />
         <div class="d-flex gap-2 mt-2">
             <a asp-page="./Index"
@@ -159,6 +166,11 @@
                asp-page-handler="Terciary"
                class="btn btn-primary">
                 Monthly Sessions
+            </a>
+            <a asp-page="./Index"
+               asp-page-handler="Quartal"
+               class="btn btn-primary">
+                Muscles Used
             </a>
         </div>
     </div>
