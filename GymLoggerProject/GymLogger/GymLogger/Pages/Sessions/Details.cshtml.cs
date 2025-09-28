@@ -61,5 +61,20 @@ namespace GymLogger.Pages.Sessions
             await _context.SaveChangesAsync();
             return RedirectToPage(new { id });
         }
+        public async Task<IActionResult> OnPostDeleteSessionAsync(int id)
+        {
+            var session = await _context.Sessions
+                .Include(s => s.ExerciseSessions)
+                .FirstOrDefaultAsync(s => s.Id == id);
+
+            if (session == null) return NotFound();
+
+            _context.Sessions.Remove(session);
+            await _context.SaveChangesAsync();
+
+            // delete session and return to dashboard
+
+            return RedirectToPage("/Sessions/Index");
+        }
     }
 }

@@ -913,10 +913,10 @@ C:\Users\START\Sdileni\GymLoggerProject\GymLogger\GymLogger\obj\Debug\net9.0\sta
 C:\Users\START\Sdileni\GymLoggerProject\GymLogger\GymLogger\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\START\Sdileni\GymLoggerProject\GymLogger\GymLogger\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\START\Sdileni\GymLoggerProject\GymLogger\GymLogger\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\START\Sdileni\GymLoggerProject\GymLogger\GymLogger\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\START\Sdileni\GymLoggerProject\GymLogger\GymLogger\obj\Debug\net9.0\GymLogger.csproj.Up2Date
 C:\Users\START\Sdileni\GymLoggerProject\GymLogger\GymLogger\obj\Debug\net9.0\GymLogger.dll
 C:\Users\START\Sdileni\GymLoggerProject\GymLogger\GymLogger\obj\Debug\net9.0\refint\GymLogger.dll
 C:\Users\START\Sdileni\GymLoggerProject\GymLogger\GymLogger\obj\Debug\net9.0\GymLogger.pdb
 C:\Users\START\Sdileni\GymLoggerProject\GymLogger\GymLogger\obj\Debug\net9.0\GymLogger.genruntimeconfig.cache
 C:\Users\START\Sdileni\GymLoggerProject\GymLogger\GymLogger\obj\Debug\net9.0\ref\GymLogger.dll
+C:\Users\START\Sdileni\GymLoggerProject\GymLogger\GymLogger\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
