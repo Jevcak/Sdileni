@@ -23,6 +23,21 @@ namespace GymLogger
             text.LabelAlignment = Alignment.MiddleCenter;
             return plot;
         }
+        public Plot PreparePlot00()
+        {
+            var plot = new Plot();
+            var text = plot.Add.Text("No data to display", 25, 0.5);
+            text.LabelFontSize = 26;
+            // when bold it doesn't quite match the buttons
+            //text.LabelBold = true;
+            text.LabelFontColor = Colors.White;
+            // blue color that should match the buttons
+            text.LabelBackgroundColor = Color.FromHex("#0D6EFD");
+            text.LabelBorderWidth = 3;
+            text.LabelPadding = 10;
+            text.LabelAlignment = Alignment.MiddleCenter;
+            return plot;
+        }
         // graph that shows overall weight lifted on sessions in time
         public Plot PreparePlot1(List<Session> sessions)
         {
@@ -43,7 +58,10 @@ namespace GymLogger
             sp1.MarkerSize = 10;
             sp1.Smooth = true;
             sp1.Color = Colors.Green;
-
+            if (xset.Length == 0)
+            {
+                return PreparePlot00();
+            }
             // add linear regression to show progress 
             ScottPlot.Statistics.LinearRegression reg = new(xset, ylist);
 
@@ -82,7 +100,8 @@ namespace GymLogger
                 e => e,
                 e => new List<(DateTime, double)>()
             );
-
+            if (sessions.Count == 0)
+                return PreparePlot00();
             foreach (var session in sessions)
             {
                 foreach (string exerciseName in targetExercises)
@@ -111,7 +130,6 @@ namespace GymLogger
                 sp1.LineWidth = 3;
                 sp1.MarkerSize = 10;
                 sp1.Smooth = true;
-
                 // add linear regression to show progress 
                 ScottPlot.Statistics.LinearRegression reg = new(xset, ylist);
 
@@ -150,9 +168,8 @@ namespace GymLogger
                     Count = g.Count()
                 })
                 .ToList();
-
             if (grouped.Count == 0)
-                return plot;
+                return PreparePlot00();
 
             for (int i = 0; i < grouped.Count; i++)
             {
@@ -186,6 +203,8 @@ namespace GymLogger
         public Plot PreparePlot4(Dictionary<string, List<MuscleGroupDaysViewModel>> muscleGroupDaysGrouped)
         {
             Plot plot = new Plot();
+            if (muscleGroupDaysGrouped.Count == 0)
+                return PreparePlot00();
             foreach (var kvp in muscleGroupDaysGrouped)
             {
                 List<MuscleGroupDaysViewModel> list = kvp.Value;
@@ -198,7 +217,6 @@ namespace GymLogger
                 sp1.LineWidth = 3;
                 sp1.MarkerSize = 10;
                 sp1.Smooth = true;
-
                 // add linear regression to show progress 
                 ScottPlot.Statistics.LinearRegression reg = new(xset, ylist);
 

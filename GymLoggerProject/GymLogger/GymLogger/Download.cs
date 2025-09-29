@@ -55,10 +55,10 @@ namespace GymLogger
         }
 
         public string[] columnNames = 
-            ["SessionId","SessionName",
-            "ExerciseId","ExerciseName",
-            "Weight","Repetitions","Sets",
-            "DateTime","Note"];
+                ["SessionId","SessionName",
+                "ExerciseId","ExerciseName",
+                "Weight","Repetitions","Sets",
+                "DateTime","Note"];
         //Here I will prepare the string, File will be created in OnGetDownloadCsvAsync
         public string PrepareForDownload(List<Session> sessions)
         {

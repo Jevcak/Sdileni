@@ -104,25 +104,7 @@
     </div>
     <div class="grid-row">
         <div class="grid-item">
-            <h2>Last session details</h2>
-            @if (Model.LastSession != null)
-            {
-                <div class="card mt-3">
-                    <div class="card-body">
-                        <p><strong>Name:</strong> @Model.LastSession.Name</p>
-                        <p><strong>Date:</strong> @Model.LastSession.Date.ToShortDateString()</p>
-                        <p><strong>Exercises count:</strong> @Model.LastSession.ExerciseSessions!.Count()</p>
-                        <p>
-                            <strong>Total volume:</strong>
-                            @Model.LastSession.TotalWeightLifted.ToString() kg
-                        </p>
-                    </div>
-                </div>
-            }
-            else
-            {
-                <p>Add your first training session now! 🏋️‍</p>
-            }
+            <h2>Time between exercises</h2>
             @if (Model.ExercisesWithDays.Any())
             {
                 <ul>
@@ -137,15 +119,26 @@
                             }
                 </ul>
             }
+            else
+            {
+                <p>Add your first training session now! 🏋️‍</p>
+            }
         </div>
         <div class="grid-item">
             <h2>Personal Records</h2>
+            @if (Model.PersonalRecords.Any())
+            {
             <ul>
                 @foreach (var pr in Model.PersonalRecords)
                 {
                     <li>@pr.ExerciseName: @pr.RecordWeight kg × @pr.RecordReps reps</li>
                 }
             </ul>
+            }
+            else
+            {
+            <p>Add your first training session now! 🏋️‍</p>
+            }
         </div>
     </div>
     <div class="grid-item">

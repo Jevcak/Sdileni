@@ -30,7 +30,7 @@ namespace GymLogger.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Exercises");
+                    b.ToTable("Exercises", (string)null);
 
                     b.HasData(
                         new
@@ -137,7 +137,7 @@ namespace GymLogger.Migrations
 
                     b.HasIndex("MuscleId");
 
-                    b.ToTable("ExerciseMuscles");
+                    b.ToTable("ExerciseMuscles", (string)null);
 
                     b.HasData(
                         new
@@ -425,7 +425,7 @@ namespace GymLogger.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("ExerciseSessions");
+                    b.ToTable("ExerciseSessions", (string)null);
                 });
 
             modelBuilder.Entity("GymLogger.Muscle", b =>
@@ -444,7 +444,7 @@ namespace GymLogger.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Muscles");
+                    b.ToTable("Muscles", (string)null);
 
                     b.HasData(
                         new
@@ -551,7 +551,7 @@ namespace GymLogger.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Sessions");
+                    b.ToTable("Sessions", (string)null);
                 });
 
             modelBuilder.Entity("GymLogger.User", b =>

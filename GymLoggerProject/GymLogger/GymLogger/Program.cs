@@ -63,6 +63,12 @@ namespace GymLogger
                 app.UseHsts();
             }
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                db.Database.Migrate();
+            }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
