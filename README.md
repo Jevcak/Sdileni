@@ -1,3 +1,3 @@
 Tohle je repozitář na sdílení kódů
 
-Dokumentace k GymLoggerProjet je dostupná zde: https://github.com/Jevcak/Sdileni/releases/tag/documentation
+Dokumentace k GymLoggerProject je dostupná zde: https://github.com/Jevcak/Sdileni/releases/tag/documentation
