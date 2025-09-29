@@ -15,6 +15,7 @@ namespace GymLogger.Pages
         }
         public IActionResult OnGet()
         {
+            // if user is signed in, don't show this site
             if (_signInManager.IsSignedIn(User))
             {
                 GraphPlotter plotter = new GraphPlotter();
